@@ -1,0 +1,107 @@
+\documentclass[11pt]{jarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{D:\\KCCT\\D5\\jikken\\kcctd-report}
+\usepackage{booktabs}
+\usepackage{mathcomp}
+\usepackage{array}
+\usepackage{mathtools,amssymb}
+\usepackage{siunitx}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{listings,jvlisting}
+\lstset{
+	basicstyle={\ttfamily},
+	identifierstyle={\small},
+	commentstyle={\smallitshape},
+	keywordstyle={\small\bfseries},
+	ndkeywordstyle={\small},
+	stringstyle={\small\ttfamily},
+	frame={tb},
+	breaklines=true,
+	columns=[l]{fullflexible},
+	numbers=left,
+	xrightmargin=0zw,
+	xleftmargin=3zw,
+	numberstyle={\scriptsize},
+	stepnumber=1,
+	numbersep=1zw,
+	lineskip=-0.5ex,
+	tabsize=2
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+\title{MOS構造の作製と特性評価}
+\adviser{西 敬生 教授}
+
+\sdate{令和5年6月15日}
+\edate{令和5年6月日}
+\fdate{令和5年7月日}
+\rdate{}
+
+\grade{5}
+\anumber{12}
+\gnumber{B}
+\name{河合 将暉}
+\jname{}
+\comment{}
+\begin{document}
+\maketitle
+
+\section{目的}
+	トランジスタ製作の基本技術の習得とMOSトランジスタの基本特性であるMOS容量の電圧依存性、周波数特性および酸化膜厚の参加時間依存性について学ぶ。
+
+\section{解説}
+	\subsection{MOS構造}
+		MOSとはMetal(金属)\-Oxied(酸化膜)\-Semiconductor(半導体)の頭文字の略称である。
+		半導体Siの表面を酸化させ、絶縁体酸化膜\,SiO_{2}が形成される。
+		この上に金属電極を積むことで図\refeq{}のMOS構造が形成される。
+
+	\subsection{作製過程}
+		\begin{itemize}
+			\item ウェーハ洗浄
+				Siウェーハの表面は一度パッケージから出してしまえば、たとえクリーンルーム内といえども、多かれ少なかれ汚染される。
+				本校クリーンルームはクラス10000（1立方フィート内に$0.5\,\mu$\,mの粒子が1万粒）とされ、専門家ではない萼せいがアツカウことを考えれば、ウェーハを扱う企業の現場(クラス1〜100)より非常に汚染されやすい環境にある。
+				具体的にウェーハ表面を汚染するものや除去したいものとしては
+
+				\begin{itemize}
+					\item パーティクル
+					\item アルカリ金属、重金属
+					\item 有機物
+					\item Si自然酸化膜
+				\end{itemize}
+
+				以上が挙げられる。
+				ここでのパーティクルとは、材質などは問わずに、粒形が数百nm以上のものの総称である。
+
+				これらをウェーハ表面に物理的・科学敵にダメージを与えることなく、除去する洗浄方法が必要とされており、RCA法など、多くの方法が提案されている。
+
+			\item 酸化膜形成
+				Siの酸化膜はウェーハを、酸素を満たした900〜1200^\circ の高温の炉中に入れr熱酸化によって形成されることが多い。
+				満たす酸素の供給源としては、乾燥した純粋な酸素O_{2}を送り込むドライ酸化と、水蒸気または水素と酸素の混合気を送り込むウェット（水蒸気またはスチームなどともいう）酸化がある。
+
+				酸化のメカニズムは、
+					\begin{itemize}
+						\item 酸化種(O_{2}またはH_{2}O)が表面で反応もしくはSiO_{2}に吸着される。
+						\item 吸着されたO_{2}またはH_{2}Oが酸化膜SiO_{2}
+						\item
+					\end{itemize}
+
+			\item フォトリソグラフィ
+		\end{itemize}
+
+	\subsection{MOS構造の電気的特性}
+		
+
+\section{実験方法}
+	\subsection{使用器具}
+	\subsection{実験方法}
+\section{実験結果}
+\section{考察}
+\section{感想}
+\begin{thebibliography}{99}
+\bibitem{ref:指導書}
+「実験実習指導書」神戸高専電子工学科 pp,
+\end{thebibliography}
+\end{document}
