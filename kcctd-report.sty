@@ -1,0 +1,109 @@
+%==================================================================
+%
+% Project Name    : 神戸高専電子工学科実験レポートスタイルファイル
+% File Name       : kcctd-report.sty
+% Encoding        : UTF8
+% Creation Date   : Oct.14, 2022
+% Copyright       : Y.Hashimoto
+%
+%===================================================================
+%%%%  Set Size   %%%%
+\setlength\paperheight {297mm}
+\setlength\paperwidth  {210mm}
+\setlength\oddsidemargin{0mm}
+\setlength\evensidemargin{0mm}
+\setlength\textwidth{162mm}
+\setlength\topmargin{-17mm}
+\setlength\headheight{5mm}
+\setlength\headsep{7mm}
+\setlength\textheight{257mm}
+\renewcommand{\baselinestretch}{0.9}
+
+
+%%%% Title Page %%%%
+\def\title#1{\gdef\@title{#1}}%
+\def\adviser#1{\gdef\@adviser{#1}}%
+
+\def\sdate#1{\gdef\@sdate{#1}}%
+\def\edate#1{\gdef\@edate{#1}}%
+\def\fdate#1{\gdef\@fdate{#1}}%
+\def\rdate#1{\gdef\@rdate{#1}}%
+
+\def\grade#1{\gdef\@grade{#1}}%
+\def\anumber#1{\gdef\@anumber{#1}}%
+\def\gnumber#1{\gdef\@gnumber{#1}}%
+\def\name#1{\gdef\@name{#1}}%
+\def\jname#1{\gdef\@jname{#1}}%
+
+\def\comment#1{\gdef\@comment{#1}}%
+
+
+\def\maketitle{%
+	\thispagestyle{empty}%
+	\setcounter{page}{1}%
+	\vspace*{0.5cm}%
+	\begin{center}%
+	{\fontsize{30pt}{0cm}\selectfont\bfseries 電子工学科 実験報告書}\\%
+%{\fontsize{15pt}{0cm}\selectfont\Huge\bfseries 電子工学科 実験報告書}\\%
+	\rule[1mm]{162mm}{0.5mm}
+	\end{center}%
+	\vskip 3mm
+	{\large\bfseries
+	\begin{tabular}{p{30mm}p{120mm}}%
+    　実験題目： & \@title \\
+    　担当教員： & \@adviser \\
+    　実験開始日： & \@sdate \\
+    　実験終了日： & \@edate \\
+    　提出日： & \@fdate \\
+    　再提出日： & \@rdate \\
+     & \\
+    　学年： & \@grade 年\\
+    　出席番号： & \@anumber \\
+    　実験班： & \@gnumber 班\\
+    　氏名： & \@name \\
+     & \\
+    　共同実験者名： & \@jname \\
+    \end{tabular}}%
+	\vskip 1cm
+	\rule[1mm]{162mm}{0.2mm}
+	{\large\bfseries 　　コメント欄\\
+	\\
+	\begin{tabular}{p{2mm}p{150mm}}%
+	 & \@comment \\
+	\end{tabular}}%
+
+	\vfill
+	\vspace*{0.5cm}
+	\addtocounter{page}{-1}
+	\newpage%
+	
+}%
+
+%%% Caption %%%%%
+\long\def\@makecaption#1#2{%
+  \advance\leftskip1cm
+  \advance\rightskip1cm
+  \vskip\abovecaptionskip
+  \iftdir\sbox\@tempboxa{#1\hskip1zw#2}%
+    \else\sbox\@tempboxa{#1 #2}%
+  \fi
+  \ifdim \wd\@tempboxa >\hsize
+    \iftdir #1\hskip1zw#2\relax\par
+      \else #1 #2\relax\par\fi
+  \else
+    \global \@minipagefalse
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+
+%%% \Hline, \Vline %%%
+\makeatletter
+\def\@arrayrule{\@addtopreamble{%
+\vrule \@width \arrayrulewidth}}
+\def\Hline{\noalign{\hrule height 1.2pt}}
+\def\Vline{\vrule width 1.2pt}
+\def\nline{\noalign{\hrule height 0.2pt}}
+\makeatother
+
+%%% enumerate %%%
+\def\labelenumi{\arabic{enumi})}%
