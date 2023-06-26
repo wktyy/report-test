@@ -1,6 +1,6 @@
 \documentclass[11pt]{jarticle}
 \usepackage[dvipdfmx]{graphicx}
-\usepackage{D:\\KCCT\\D5\\jikken\\kcctd-report}
+\usepackage{kcctd-report}
 \usepackage{booktabs}
 \usepackage{mathcomp}
 \usepackage{array}
@@ -54,7 +54,7 @@
 
 \section{解説}
 	\subsection{MOS構造}
-		MOSとはMetal(金属)\-Oxied(酸化膜)\-Semiconductor(半導体)の頭文字の略称である。
+		MOSとはMetal(金属)−Oxied(酸化膜)−Semiconductor(半導体)の頭文字の略称である。
 		半導体Siの表面を酸化させ、絶縁体酸化膜\,$\mathrm{SiO_{2}}$が形成される。
 		この上に金属電極を積むことで図\refeq{}のMOS構造が形成される。
 
@@ -113,7 +113,7 @@
 				\caption{シリコンのドライ酸化時の酸化定数}
 				\label{tab:Sidrai}
 				\begin{tabular}{cSSS} \toprule
-					酸化温度T\,[$^\circ \mathrm{C}$]&A\,[$\mathrm{\mu m}$]&B\,[$\mathrm{\mu m^{2}/h}$]&$\tau_{0}$\,[h]\\ \hline
+					酸化温度T\,[$^\circ \mathrm{C}$]&A[$\mathrm{\mu m}$]&B[$\mathrm{\mu m^{2}/h}$]&$\tau_{0}$[h]\\ \hline
 					1200&0.040&0.045&0.027\\
 					1100&0.090&0.027&0.076\\
 					1000&0.165&0.0117&0.37\\
@@ -160,14 +160,98 @@
 		\end{enumerate}
 
 	\subsection{MOS構造の電気的特性}
-		
+		\begin{enumerate}
+			\item 電圧印加による3つの状態\\
+				MOS構造は、図\refeq{}のように印加電圧によって電気的に3つの状態に変化する。
+				図\refeq{}はプラスの電圧V1を印加した状態で、酸化膜を挟んで電極下の半導体の部分に電子が引き寄せられ、多数キャリアの正孔と引き寄せられた電子が再結合し、キャリアの存在しない空乏層と呼ばれる領域が生じる。
+				これを空乏状態という。
+				V1より大きな電圧を印加するとより多く電子が引き寄せられ、酸化膜−半導体界面のごく薄い部分だけP形からN形に``反転''する。
+				これを図\refeq{}のように反転層といい、反転状態と呼ぶ。
+				このようにMOS構造では、半導体の伝導型を電圧によって変化させることができる。
+				MOSトランジスタはこれを利用している。
+				図\refeq{}は蓄積状態と呼ばれ、V3を印加すると正孔を引き寄せ、その部分の抵抗率が下げられる。
+
+			\item 電圧−容量特性\\
+				MOS構造は金属で絶縁体をサンドイッチしていると考えるとコンデンサの一種と見ることもできる。
+				空乏層という絶縁層を生じさせ、印加電圧によって空乏層幅を変化させられるため、静電容量も変えることができる。
+				図\refeq{}はMOS構造のC−V特性で周波数によって特性が図のように変化する。
+
+		\end{enumerate}
 
 \section{実験方法}
 	\subsection{使用器具}
+		本実験での使用器具を表\refeq{tab:used}に示す。
+		\begin{table}[H]
+		\begin{center}
+		\caption{使用器具}
+		\label{tab:used}
+		\begin{tabular}{clllll} \toprule
+		No&\multicolumn{1}{l}{機器名}&\multicolumn{1}{l}{型番}&\multicolumn{1}{l}{シリアルNo}&\multicolumn{1}{l}{備考}\\ \hline
+		1&横型管状電気炉&&&\\
+		2&ドラフター&&&\\
+		3&スピンコーター&&&\\
+		4&ジェットオーブン&&&\\
+		5&真空蒸着装置&&&\\
+		6&超音波洗浄機&&&\\
+		7&ホットプレート&&&\\
+		8&マスクアライナ&&&\\
+		9&顕微鏡&&&\\
+		10&LCRメータ&&&\\
+		11&定電圧電源&&&\\
+		12&グローブボックス&&&\\
+		13&シリコン基板&&&\\ \hline
+		\end{tabular}
+		\end{center}
+		\end{table}
+
 	\subsection{実験方法}
-\section{実験結果}
+		MOS構造の作成工程を図\refeq{}に示す。
+		図\refeq{}で完成したMOS構造の静電容量−電圧特性、周波数依存性を測定した。
+		作成手順を以下に示す。
+		\begin{enumerate}
+			\item プライムウェーハ初期洗浄\\
+				排気装置であるドラフターの中で表\refeq{tab:wash}の手順に従って洗浄作業を行った。
+				\begin{table}[H]
+				\begin{center}
+				\caption{初期洗浄方法}
+				\label{tab:wash}
+				\begin{tabular}{c|ccc} \toprule
+					手順&洗浄方法&時間\,[分]&使用ビーカ\\ \hline
+					1&セミコクリーン23による超音波洗浄&5&セミコクリーン\\
+					2&純粋オーバーフロー&5&セミコクリーン−$\mathrm{H_{2}O}$\\
+					3&遠心乾燥&1&\\ \hline
+				\end{tabular}
+				\end{center}
+				\end{table}
+
+			\item 酸化膜形成\\
+				酸化膜形成の条件を以下に示す。
+				\begin{itemize}
+					\item 電気炉の温度：$1060^\circ \mathrm{C}$
+					\item レギュレータ圧力：酸素 3\,L/min、窒素 3\,L/min
+					\item ガス流量：酸素 1\,kg/$\mathrm{cm^{2}}$、窒素 1.2\,kg/$\mathrm{cm^{2}}$
+				\end{itemize}
+				実際には電気炉を稼働させてから最初の20分は温度が安定せず、一時的に$1160^\circ \mathrm{C}$まで上昇した。
+
+				次に、酸化膜形成の手順を以下に示す。
+				\begin{enumerate}
+					\item 窒素を流すスイッチ(1−SV)がONで、窒素フローメーターが3\,L/minであることを確認した。
+					\item ウェーハを石英製ホルダーにセットし、そのホルダーごと電気炉の入口の手前(電気炉の外)に置く。
+					\item 
+				\end{enumerate}
+
+			\item Al蒸着\\
+			\item フォトリソグラフィ\\
+			\item Alエッチング\\
+			\item レジスト除去\\
+			\item 表面レジスト塗布\\
+			\item 裏面酸化膜エッチング\\
+			\item レジスト除去\\
+			\item Al蒸着\\
+		\end{enumerate}
+	\section{実験結果}
 \section{考察}
-\section{感想}
+\section{所感}
 \begin{thebibliography}{99}
 \bibitem{ref:指導書}
 「実験実習指導書」神戸高専電子工学科 pp,
