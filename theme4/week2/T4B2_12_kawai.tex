@@ -13,12 +13,12 @@
 \usepackage{setspace}
 \usepackage{kcctd-report}
 
-\title{}
-\adviser{}
+\title{各種計算ハードウェアの活用\\～VHDLによるディジタル回路の設計～}
+\adviser{木場 隼介 先生}
 
-\sdate{令和5年10月3日}
-\edate{令和5年10月日}
-\fdate{令和5年10月日}
+\sdate{令和5年10月12日}
+\edate{令和5年10月19日}
+\fdate{令和5年10月24日}
 \rdate{}
 
 \grade{5}
@@ -31,17 +31,63 @@
 \maketitle
 
 \section{目的}
-
+本実験では，業界標準のVHDLとAltera(Intel)社のQuartus Prime Lite
+Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本的な
+考え方と手法を習得することを目的とする。
 \section{解説}
-	\subsection{}
+	\subsection{VHDL・FPGAとは}
+	VHDLとはIEEEで標準化されたデジタル回路設計用のハードウェア記述言語(HDL：Hardware Description Language)
+	である。従来の電子回路設計はプリント回路基板設計用のCADなどを用いて多数の
+	電子部品を回路図記号で表記することが一般的で製造後に回路構成を変更できなか
+	ったが，現場で論理回路の構成をプログラムできる論理回路を集積したデバイス(FPGA：Field Programable Gate Array)
+	が登場すると，HDLを用いてその論理ゲートをプログラミングのように記述することが
+	可能になった．
+	HDLにはVHDL，VerilogHDLの2種類が存在し，VHDLはFPGAが登場した初期から存在し，
+	Ada言語やPascal言語を参考に記法が作られている。VerilogHDLは比較的新しい言語で
+	C言語ベースの記法で作られている。明確な違いの例を挙げると，論理演算子が
+	VHDLではand or not であるが VerilogHDLでは \& \textbar \, \textasciitilde などの
+	記号で表されている。
+	
+	\subsection{Altera社について}
+	Altera社は1983年に設立されたPLD(Programable Logic Device)の代表的企業で，
+	システムオンプログラマブルチップを可能とするべく，様々な技術を開発し，その中
+	ではチップ内にメモリやマイクロプロセッサ，トランシーバを埋め込んだものも存在
+	するという。現在ではIntel社に買収され，FPGA部門として活動している。
+	\subsection{Quartus Primeとは}
+	
+
 \section{実験内容}
 	\subsection{使用器具}
-	\subsection{実験方法}
+		\begin{table}[H]
+		\centering
+		\caption{test}
+		\label{tab:used}
+		\begin{tabular}{clllll} \toprule
+		No&\multicolumn{1}{l}{機器名}&\multicolumn{1}{l}{型番}&\multicolumn{1}{l}{シリアルNo}&\multicolumn{1}{l}{備考}\\ \hline
+		1&FPGAボード&Cyclone V E FPGA&2&シリアルNoは\\
+		&&Development Kit&&外箱の番号を記載\\
+		2&PC&ASUS &&\\
+		\end{tabular}
+		\end{table}
+	\subsection{実験準備}
+	\subsection{LEDの点灯と消灯}
+	\subsection{LEDでのバイナリ表示}
+	\subsection{LEDでのグレイ符号表示}
+	\subsection{LEDのクロック同期動作}
+	\subsection{FPGAの論理演算}
+	\subsection{I/O機器によるLED点消灯}
+	\subsection{2進数ルーレット}
+	\subsection{4色スロットマシン}
 \section{実験結果}
 \section{考察}
-\section{所感}
+	\subsection{分周回路}
 \begin{thebibliography}{99}
 \bibitem{ref:指導書}
-「実験実習指導書」神戸高専電子工学科 pp.
+「各種計算ハードウェアの活用～VHDLによるディジタル回路の設計～」
+神戸高専電子工学科 pp.01-33
+
+\bibitem{ref:VerilogVHDL}
+トーマスイッチ「VerilogとVHDLの違いとはわかりやすく解説」
+https://toumaswitch.com/5q0shy1sod/
 \end{thebibliography}
 \end{document}

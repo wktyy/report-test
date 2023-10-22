@@ -80,21 +80,21 @@
 }%
 
 %%% Caption %%%%%
-\long\def\@makecaption#1#2{%
-  \advance\leftskip1cm
-  \advance\rightskip1cm
-  \vskip\abovecaptionskip
-  \iftdir\sbox\@tempboxa{#1\hskip1zw#2}%
-    \else\sbox\@tempboxa{#1 #2}%
-  \fi
-  \ifdim \wd\@tempboxa >\hsize
-    \iftdir #1\hskip1zw#2\relax\par
-      \else #1 #2\relax\par\fi
-  \else
-    \global \@minipagefalse
-    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
-  \fi
-  \vskip\belowcaptionskip}
+% \long\def\@makecaption#1#2{%
+%   \advance\leftskip1cm
+%   \advance\rightskip1cm
+%   \vskip\abovecaptionskip
+%   \iftdir\sbox\@tempboxa{#1\hskip1zw#2}%
+%     \else\sbox\@tempboxa{#1 #2}%
+%   \fi
+%   \ifdim \wd\@tempboxa >\hsize
+%     \iftdir #1\hskip1zw#2\relax\par
+%       \else #1 #2\relax\par\fi
+%   \else
+%     \global \@minipagefalse
+%     \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+%   \fi
+%   \vskip\belowcaptionskip}
 
 %%% \Hline, \Vline %%%
 \makeatletter
