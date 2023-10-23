@@ -11,9 +11,30 @@
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{setspace}
+
+\usepackage{listings,jvlisting}
+\lstset{
+	basicstyle={\ttfamily},
+	identifierstyle={\small},
+	commentstyle={\smallitshape},
+	keywordstyle={\small\bfseries},
+	ndkeywordstyle={\small},
+	stringstyle={\small\ttfamily},
+	frame={tb},
+	breaklines=true,
+	columns=[l]{fullflexible},
+	numbers=left,
+	numberstyle={\scriptsize},
+	stepnumber=1,
+	lineskip=-0.5ex,
+	tabsize=2
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
 \usepackage{kcctd-report}
 
-\title{各種計算ハードウェアの活用\\～VHDLによるディジタル回路の設計～}
+
+\title{各種計算ハードウェアの活用\,VHDLによるディジタル回路の設計}
 \adviser{木場 隼介 先生}
 
 \sdate{令和5年10月12日}
@@ -85,9 +106,83 @@ Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本
 			\item 設定の確認
 		\end{enumerate}
 		これらの設定を行ったあと,カウンタの数字によって点灯するLEDを変えるプログラムを保存した。
-		
+		そして，HDLで記述された回路は論理合成と配置配線を行うことでLSIに実装できるようになる．
+		FPGA設計用のツールでは，これらの処理はひとまとめにされ，コンパイルと呼ばれている．
+		以下にコンパイルの処理手順について示す．
+		\begin{enumerate}
+			\item プリフィット
+			\item ピン配置
+			\item ポストフィット
+		\end{enumerate}
+		上記によりコンパイルが行われる．
+		次に，コンパイル後に出力されたコンフィグレーションデータをFPGAボードに書き込む．
+		この際に，Windowのツールバー上「Tools」→「Programmer」を選択し，Programmerを開く．
+		ここで書き込むデバイスの指定を行い，書き込みを行った．
+
+		以上の準備を以降の実験でも同様に行い，基本的な論理回路の動作確認をした．
+
 	\subsection{LEDの点灯と消灯}
+		FPGAに搭載されているLEDはFPGAのI/Oピンが``L''のときにLEDが点灯し，``H''のときに
+		消灯する．
+		以下にSample1のソースコードをソースコード\refeq{code:sample1}に示す．
+
+		\begin{lstlisting}[caption=sample1, label=code:sample1]
+			testtest
+			titless
+		\end{lstlisting}
+
+		FPGAのピン配置を以下の表\refeq{tab:LED1}に示す．
+
+		\begin{table}[H]
+		\begin{center}
+		\caption{LED点灯回路のピン配置}
+		\label{tab:LED1}
+		\begin{tabular}{cc} \toprule
+			portの名前 & ピン名称 \\ \hline
+			led\_out & PIN\_AK3\\
+		\bottomrule
+		\end{tabular}
+		\end{center}
+		\end{table}
+
+		ここで，VHDL記述の基本事項として，ライブラリ宣言部とパッケージ宣言部で始まり，
+		エンティティ宣言で入出力ポートを定義し，アーキテクチャ宣言に動作を記述していく．
+		コメントアウトは``--''で記述できる．
+		以下に各事項についての詳細を示す．
+	
+		\begin{enumerate}
+			\item ライブラリ宣言
+			\item パッケージ呼び出し
+			\item エンティティ宣言
+			\item アーキテクチャ宣言
+		\end{enumerate}
+
 	\subsection{LEDでのバイナリ表示}
+		3.3項で行った一つのLED表示を応用して，複数のLEDを制御可能なプログラムを作成した．
+		そして，4つのLEDを用いてバイナリ表示を表現した．
+		以下にSample2のソースコードをソースコード\refeq{code:sample2}に示す．
+
+		\begin{lstlisting}[caption=sample2, label=code:sample2]
+			aaa
+		\end{lstlisting}
+
+		FPGAのピン配置を以下の表\refeq{tab:LED4}に示す．
+
+		\begin{table}[H]
+		\begin{center}
+		\caption{4つのLEDで2進数表現する回路のピン配置}
+		\label{tab:LED4}
+		\begin{tabular}{cc} \toprule
+			portの名前 & ピン名称 \\ \hline
+			led\_out[0] & PIN\_AK3 \\
+			led\_out[1] & PIN\_AJ4 \\
+			led\_out[2] & PIN\_AJ5 \\
+			led\_out[3] & PIN\_AK6 \\
+			\bottomrule
+		\end{tabular}
+		\end{center}
+		\end{table}
+
 	\subsection{LEDでのグレイ符号表示}
 	\subsection{LEDのクロック同期動作}
 	\subsection{FPGAの論理演算}
