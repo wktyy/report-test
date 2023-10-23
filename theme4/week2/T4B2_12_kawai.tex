@@ -67,9 +67,25 @@ Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本
 		1&FPGAボード&Cyclone V E FPGA&2&シリアルNoは\\
 		&&Development Kit&&外箱の番号を記載\\
 		2&PC&ASUS &&\\
+		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsection{実験準備}
+		Altera(Intel)社から発売されている評価ボードCyclone V E FPGA Development Kit を使用した。
+		このボードに搭載されているFPGAのCyclone V E FPGA (5CEFA7F31I7N)と周辺機器のLED4個,
+		押しボタンスイッチ4個，クロック発振器(50MHz),キャラクタ液晶などが搭載されている。
+		準備として,Quartus Primeの操作手順について以下に示す。
+		\begin{enumerate}
+			\item New Project Wizardの起動
+			\item プロジェクト名の指定
+			\item テンプレートの設定
+			\item 使用する設計ファイルの設定
+			\item ターゲットデバイスファミリの指定
+			\item EDA Toolの指定
+			\item 設定の確認
+		\end{enumerate}
+		これらの設定を行ったあと,カウンタの数字によって点灯するLEDを変えるプログラムを保存した。
+		
 	\subsection{LEDの点灯と消灯}
 	\subsection{LEDでのバイナリ表示}
 	\subsection{LEDでのグレイ符号表示}
