@@ -292,8 +292,8 @@ Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本
 
 	\subsection{LEDのクロック同期動作}
 		sample3で使用したグレイ符号へのエンコーダ/デコーダ回路を自動的に一定周期で変化させるプログラムを
-		ソースコード\refeq{sample4}に示す．
-		\begin{lstlisting}[caption=sample4, label=sample4]
+		ソースコード\refeq{code:sample4}に示す．
+		\begin{lstlisting}[caption=sample4, label=code:sample4]
 			library ieee;
 			use ieee.std_logic_1164.all;
 			use ieee.std_logic_unsigned.all;
@@ -377,9 +377,12 @@ Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本
 			end rtl;
 		\end{lstlisting}
 
-	\subsection{FPGAの論理演算}
+		上記プログラムを実行し、一定周期で1ビットずつLEDが動作することを確認した。
+		また、分周回路のクロックを変化させることでLEDが点滅する速度が変わることを確認した。
 
-		\begin{lstlisting}[caption=sample5, label=sample5]
+	\subsection{FPGAの論理演算}
+		HDLによって記述された論理回路をプッシュボタンとLEDで確認するプログラムをソースコード\refeq{code:sample5}に示す。
+		\begin{lstlisting}[caption=sample5, label=code:sample5]
 			library ieee;
 			use ieee.std_logic_1164.all;
 
@@ -409,6 +412,20 @@ Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本
 
 			end rtl;
 		\end{lstlisting}
+
+		\begin{table}[H]
+		\begin{center}
+		\caption{sample5のピン配置}
+		\label{tab:sample5}
+		\begin{tabular}{cc} \toprule
+			port名&ピン名称\\
+			led\_out&PIN\_AK3\\
+			pb0&PIN\_AB12\\
+			pb1&PIN\_AB13\\
+			\botoomrule
+		\end{tabular}
+		\end{center}
+		\end{table}
 
 	\subsection{I/O機器によるLED点消灯}
 
@@ -716,7 +733,8 @@ Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本
 
 			\end{lstlisting}
 
-		\section{実験結果}
+
+
 \begin{thebibliography}{99}
 \bibitem{ref:指導書}
 「各種計算ハードウェアの活用～VHDLによるディジタル回路の設計～」
