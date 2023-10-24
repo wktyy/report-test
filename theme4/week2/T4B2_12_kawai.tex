@@ -64,8 +64,8 @@ Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本
 	が登場すると，HDLを用いてその論理ゲートをプログラミングのように記述することが
 	可能になった．
 	HDLにはVHDL，VerilogHDLの2種類が存在し，VHDLはFPGAが登場した初期から存在し，
-	Ada言語やPascal言語を参考に記法が作られている。VerilogHDLは比較的新しい言語で
-	C言語ベースの記法で作られている。明確な違いの例を挙げると，論理演算子が
+	Ada言語やPascal言語を参考に記法が作られている\cite{ref:VerilogVHDL}。VerilogHDLは比較的新しい言語で
+	C言語ベースの記法で作られている\cite{ref:VerilogVHDL}。明確な違いの例を挙げると，論理演算子が
 	VHDLではand or not であるが VerilogHDLでは \& \textbar \, \textasciitilde などの
 	記号で表されている。
 	
@@ -123,15 +123,31 @@ Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本
 
 	\subsection{LEDの点灯と消灯}
 		FPGAに搭載されているLEDはFPGAのI/Oピンが``L''のときにLEDが点灯し，``H''のときに
-		消灯する．
-		以下にSample1のソースコードをソースコード\refeq{code:sample1}に示す．
+		消灯する．LEDを点灯・消灯させるプログラムをソースコード\refeq{code:sample1}に示す．
 
 		\begin{lstlisting}[caption=sample1, label=code:sample1]
-			testtest
-			titless
+			library ieee;
+			use ieee.std_logic_1164.all;
+
+			entity sample01 is
+
+			port (
+			led_out : out std_logic);
+
+			end sample01;
+
+			architecture rtl of sample01 is
+
+			begin
+
+			-- LEDはLOWで点灯するように回路が構成されているため
+			-- std_logic型の0を出力する。これを1にすると消灯する。
+			led_out <= '0';
+
+			end rtl;
 		\end{lstlisting}
 
-		FPGAのピン配置を以下の表\refeq{tab:LED1}に示す．
+		FPGAのピン配置を表\refeq{tab:LED1}に示す．
 
 		\begin{table}[H]
 		\begin{center}
@@ -148,7 +164,7 @@ Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本
 		ここで，VHDL記述の基本事項として，ライブラリ宣言部とパッケージ宣言部で始まり，
 		エンティティ宣言で入出力ポートを定義し，アーキテクチャ宣言に動作を記述していく．
 		コメントアウトは``--''で記述できる．
-		以下に各事項についての詳細を示す．
+		各事項についての詳細を以下に示す．
 	
 		\begin{enumerate}
 			\item ライブラリ宣言
@@ -160,13 +176,32 @@ Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本
 	\subsection{LEDでのバイナリ表示}
 		3.3項で行った一つのLED表示を応用して，複数のLEDを制御可能なプログラムを作成した．
 		そして，4つのLEDを用いてバイナリ表示を表現した．
-		以下にSample2のソースコードをソースコード\refeq{code:sample2}に示す．
+		ソースコード\refeq{code:sample2}を以下に示す．
 
 		\begin{lstlisting}[caption=sample2, label=code:sample2]
-			aaa
+			library ieee;
+			use ieee.std_logic_1164.all;
+
+			entity sample02 is
+
+			port (
+			led_out : out std_logic_vector(3 downto 0));
+
+			end sample02;
+
+			architecture rtl of sample02 is
+
+			begin
+
+			-- 10進数の5を表現する。LEDはLOWで点灯するため、
+			-- ビット反転した値を出力する
+			led_out <= "1010";
+
+			end rtl;
+
 		\end{lstlisting}
 
-		FPGAのピン配置を以下の表\refeq{tab:LED4}に示す．
+		FPGAのピン配置を表\refeq{tab:LED4}に示す．
 
 		\begin{table}[H]
 		\begin{center}
@@ -183,15 +218,523 @@ Editionを使用し，HDL，FPGAを用いたディジタル回路設計の基本
 		\end{center}
 		\end{table}
 
+		上記のプログラムを実行した結果を確認し，点灯パターンが異なる場合についても動作確認を行った．
+		この際，4ビットの信号はstd\_logic\_vectorによってバスとして定義している．
+		そのため，led\_out <= "1010";のようにまとめて記述することが可能である．
+
 	\subsection{LEDでのグレイ符号表示}
+		本項では，2進数の進み方が1ビットずつしか変化しないグレイ符号を表示するプログラムを作成した．
+		ソースコード\refeq{code:sample3}を以下に示す．
+		\begin{lstlisting}[caption=sample3, label=code:sample3]
+			library ieee;
+			use ieee.std_logic_1164.all;
+
+			entity sample03 is
+
+			port (
+			led_out : out std_logic_vector(3 downto 0));
+
+			end sample03;
+
+			architecture rtl of sample03 is
+
+			signal counter : std_logic_vector(3 downto 0):= (others=>'0');
+
+			begin
+
+			counter <= "0010";                -- ①
+
+			process (counter)                 -- ②
+			begin
+			case counter is
+			when "0000" =>
+			led_out <= "1111";          -- ③
+			when "0001" =>
+			led_out <= "1110";
+			when "0010" =>
+			led_out <= "1100";
+			when "0011" =>
+			led_out <= "1101";
+			when "0100" =>
+			led_out <= "1001";
+			when "0101" =>
+			led_out <= "1000";
+			when "0110" =>
+			led_out <= "1010";
+			when "0111" =>
+			led_out <= "1011";
+			when "1000" =>
+			led_out <= "0011";
+			when "1001" =>
+			led_out <= "0010";
+			when "1010" =>
+			led_out <= "0000";
+			when "1011" =>
+			led_out <= "0001";
+			when "1100" =>
+			led_out <= "0101";
+			when "1101" =>
+			led_out <= "0100";
+			when "1110" =>
+			led_out <= "0110";
+			when "1111" =>
+			led_out <= "0111";
+			when others => null;
+			end case;
+			end process;
+			end rtl;
+
+		\end{lstlisting}
+
+		上記のプログラムで2進数がグレイ符号に変換して出力されているか確認した．
+		また，それぞれ異なる数字を変換した場合やグレイ符号を2進数に変換した場合についても
+		プログラムを変更し，同様に確認した．
+
 	\subsection{LEDのクロック同期動作}
+		sample3で使用したグレイ符号へのエンコーダ/デコーダ回路を自動的に一定周期で変化させるプログラムを
+		ソースコード\refeq{code:sample4}に示す．
+		\begin{lstlisting}[caption=sample4, label=code:sample4]
+			library ieee;
+			use ieee.std_logic_1164.all;
+			use ieee.std_logic_unsigned.all;
+
+			entity sample04 is
+
+			port (
+			clk     : in  std_logic;
+			led_out : out std_logic_vector(3 downto 0));
+
+			end sample04;
+
+			architecture rtl of sample04 is
+
+			signal counter : std_logic_vector(3 downto 0);
+
+			-- 以下は分周用のカウンタとクロック
+			signal div_counter : std_logic_vector(25 downto 0);
+			signal div_clk : std_logic;
+
+			begin
+
+			-- 以下は50MHzのクロックから1秒弱のクロックを作成する
+			-- 分周回路です。
+			process (clk)
+			begin  -- process
+			if clk'event and clk = '1' then
+			div_counter <= div_counter + 1;
+			end if;
+			end process;
+
+			-- div_clkが1Hzのクロックで、デコーダへのクロック入力
+			div_clk <= div_counter(19);
+			-- ここまでが分周回路
+
+			process (div_clk)
+			begin
+			if div_clk'event and div_clk = '1' then
+			counter <= counter + 1;
+			end if;
+			end process;
+
+			process (counter)
+			begin
+			case counter is
+			when "0000" =>
+			led_out <= "1111";
+			when "0001" =>
+			led_out <= "1110";
+			when "0010" =>
+			led_out <= "1100";
+			when "0011" =>
+			led_out <= "1101";
+			when "0100" =>
+			led_out <= "1001";
+			when "0101" =>
+			led_out <= "1000";
+			when "0110" =>
+			led_out <= "1010";
+			when "0111" =>
+			led_out <= "1011";
+			when "1000" =>
+			led_out <= "0011";
+			when "1001" =>
+			led_out <= "0010";
+			when "1010" =>
+			led_out <= "0000";
+			when "1011" =>
+			led_out <= "0001";
+			when "1100" =>
+			led_out <= "0101";
+			when "1101" =>
+			led_out <= "0100";
+			when "1110" =>
+			led_out <= "0110";
+			when "1111" =>
+			led_out <= "0111";
+			when others => null;
+			end case;
+			end process;
+			end rtl;
+		\end{lstlisting}
+
+		上記プログラムを実行し、一定周期で1ビットずつLEDが動作することを確認した。
+		また、分周回路のクロックを変化させることでLEDが点滅する速度が変わることを確認した。
+
 	\subsection{FPGAの論理演算}
+		HDLによって記述された論理回路をプッシュボタンとLEDで確認するプログラムをソースコード\refeq{code:sample5}に示す。
+		\begin{lstlisting}[caption=sample5, label=code:sample5]
+			library ieee;
+			use ieee.std_logic_1164.all;
+
+			entity sample05 is
+
+			port (
+			led_out : out std_logic;
+			pb0: in std_logic;
+			pb1: in std_logic);
+
+			end sample05;
+
+			architecture rtl of sample05 is
+
+			signal operation_result : std_logic;
+			signal pb0_positive : std_logic;
+			signal pb1_positive : std_logic;
+
+			begin
+
+			pb0_positive <= not pb0;  -- スイッチ入力は負論理なので not で正論理に変換
+			pb1_positive <= not pb1;  -- スイッチ入力は負論理なので not で正論理に変換
+
+			operation_result <= (pb0_positive or pb1_positive);
+
+			led_out <= not operation_result;   -- LEDは負論理動作なので not で正論理から変換
+
+			end rtl;
+		\end{lstlisting}
+
+		\begin{table}[H]
+		\begin{center}
+		\caption{sample5のピン配置}
+		\label{tab:sample5}
+		\begin{tabular}{cc} \toprule
+			port名&ピン名称\\
+			led\_out&PIN\_AK3\\
+			pb0&PIN\_AB12\\
+			pb1&PIN\_AB13\\
+			\botoomrule
+		\end{tabular}
+		\end{center}
+		\end{table}
+
 	\subsection{I/O機器によるLED点消灯}
+
+		\begin{lstlisting}[caption=sample6, label=sample6]
+			library ieee;
+			use ieee.std_logic_1164.all;
+			use ieee.std_logic_unsigned.all;
+
+			entity sample06 is
+
+			-- div_bitsは分周回路に用いられているカウンタのビット数
+			generic (
+			div_bits : integer := 16);
+
+			port (
+			clk     : in  std_logic;
+			sw_in   : in  std_logic;
+			led_out : out std_logic);
+
+			end sample06;
+
+			architecture rtl of sample06 is
+
+			signal led_node : std_logic := '0';
+			signal div_counter : std_logic_vector(div_bits-1 downto 0) := (others => '0');
+			signal sw_in_node : std_logic;
+			signal sw_latch_on : std_logic := '0';
+			begin
+
+			-- 入力クロックを分周し、チャタリングを除去する回路
+			process (clk)
+			begin
+			if clk'event and clk = '1' then  -- rising clock edge
+			div_counter <= div_counter + 1;
+			end if;
+			end process;
+
+			-- 分周したクロックでスイッチからの入力をラッチする回路
+			-- 分周用カウンタの最上位ビットをクロックとして用いる
+			process (div_counter(div_bits-1))
+			begin  -- process
+			if div_counter(div_bits-1)'event and div_counter(div_bits-1) = '1' then
+			sw_in_node <= sw_in;
+			end if;
+			end process;
+
+			-- 基本クロックに同期してDFF(led_node)をトグルする。
+			-- チャタリングが発生すると、この回路が複数回アクティブになり、
+			-- パルスが何度も発生し、LEDがついたまま、あるいは、
+			-- 消えたままの場合がある。このような時はdiv_counterのビット数を増やす。
+			process (clk)
+			begin  -- process
+			if clk'event and clk = '1' then  -- rising clock edge
+			if sw_in_node = '0' and sw_latch_on = '0' then
+			led_node <= not led_node;
+			sw_latch_on <= '1';
+			elsif sw_in_node = '1' and sw_latch_on = '1' then
+			sw_latch_on <= '0';
+			elsif sw_in_node = '0' and sw_latch_on = '1' then
+			sw_latch_on <= '1';
+			end if;
+			end if;
+			end process;
+
+			led_out <= led_node;
+
+			end rtl;
+		\end{lstlisting}
+
 	\subsection{2進数ルーレット}
-	\subsection{4色スロットマシン}
-\section{実験結果}
-\section{考察}
-	\subsection{分周回路}
+
+		\begin{lstlisting}[caption=sample7, label=sample7]
+			library ieee;
+			use ieee.std_logic_1164.all;
+			use ieee.std_logic_unsigned.all;
+
+			entity sample07 is
+			generic (
+			div_bits : integer := 15);
+
+			port (
+			clk     : in  std_logic;
+			sw_in   : in  std_logic;
+			led_out : out std_logic_vector(3 downto 0));
+
+			end sample07;
+
+			architecture rtl of sample07 is
+
+			-- ステートマシンのためのノード宣言
+			signal counter_curr, counter_next : std_logic_vector(3 downto 0):= (others=>'0');
+
+			-- チャタリング除去のための分周クロックとスイッチ入力のためのラッチ
+			signal clk_div_sw, sw_node, sw_dff : std_logic := '0';
+			-- LED出力用の分周カウンタ。このカウンタのビット数を増やすと
+			-- ルーレットの変化がゆっくりになります。
+			signal clk_div_count : std_logic_vector(22 downto 0) := (others => '0');
+			signal div_counter : std_logic_vector(div_bits-1 downto 0) := (others => '0');
+			signal sw_latch_on : std_logic := '0';
+			begin
+
+			-- チャタリング除去のためのクロック分周
+			process (clk)
+			begin
+			if clk'event and clk = '1' then
+			div_counter <= div_counter + 1;
+			end if;
+			end process;
+			-- 最上位をチャタリング除去クロックとして用いる
+			clk_div_sw <=  div_counter(div_bits-1);
+
+			-- チャタリング除去してスイッチ入力値を採る
+			process (clk_div_sw)
+			begin
+			if clk_div_sw'event and clk_div_sw = '1' then
+			sw_node <= sw_in;
+			end if;
+			end process;
+
+			-- ルーレットの回る速さをゆっくりにするための分周回路
+			-- clk_div_countの最上位ビットをステートマシンのクロックとして用います。
+			process (clk)
+			begin
+			if clk'event and clk = '1' then
+			clk_div_count <= clk_div_count + 1;
+			end if;
+			end process;
+
+			-- ルーレットをストップ・スタートさせるためのラッチ
+			-- スイッチ入力によってトグルされます。
+			process (clk)
+			begin  -- process
+			if clk'event and clk = '1' then  -- rising clock edge
+			if sw_node = '0' and sw_latch_on = '0' then
+			sw_dff <= not sw_dff;
+			sw_latch_on <= '1';
+			elsif sw_node = '1' and sw_latch_on = '1' then
+			sw_latch_on <= '0';
+			elsif sw_node = '0' and sw_latch_on = '1' then
+			sw_latch_on <= '1';
+			end if;
+			end if;
+			end process;
+
+			-- LED出力を制御するステートマシン
+			process (clk)
+			begin
+			if clk_div_count(22)'event and clk_div_count(22) = '1' then  -- rising clock edge
+			if sw_dff = '1' then
+			counter_curr <= counter_next;
+			end if;
+			end if;
+			end process;
+
+			process (counter_curr)
+			begin
+			case counter_curr is
+			when "1011" =>
+			counter_next <= "0000";         -- (a)
+			when "0000" =>
+			counter_next <= "0001";
+			when "0001" =>
+			counter_next <= "0010";
+			when "0010" =>
+			counter_next <= "0011";
+			when "0011" =>
+			counter_next <= "0100";
+			when "0100" =>
+			counter_next <= "0101";
+			when "0101" =>
+			counter_next <= "0110";
+			when "0110" =>
+			counter_next <= "0111";
+			when "0111" =>
+			counter_next <= "1000";
+			when "1000" =>
+			counter_next <= "1001";
+			when "1001" =>
+			counter_next <= "1010";
+			when "1010" =>
+			counter_next <= "1011";
+			when others => null;
+			end case;
+			end process;
+
+
+			process (counter_curr)
+			begin
+			led_out <= not counter_curr;
+			end process;
+			end rtl;
+
+		\end{lstlisting}
+
+		\subsection{4色スロットマシン}
+
+			\begin{lstlisting}[caption=sample8, label=sample8]
+				library ieee;
+				use ieee.std_logic_1164.all;
+				use ieee.std_logic_unsigned.all;
+
+				entity sample08 is
+				generic (
+				div_bits : integer := 15);
+
+				port (
+				clk     : in  std_logic;
+				resetn   : in  std_logic;
+				sw_in   : in  std_logic;
+				led_out0, led_out1, led_out2 : out std_logic_vector(3 downto 0));
+
+				end sample08;
+
+				architecture rtl of sample08 is
+
+				component roulette
+
+				port (
+				clk     : in  std_logic;
+				resetn   : in  std_logic;
+				sw_in   : in  std_logic;
+				led_out : out std_logic_vector(3 downto 0));
+
+				end component;
+
+				signal clk_div, clk_roulette, sw_node : std_logic := '0';
+				signal div_counter : std_logic_vector(22 downto 0) := (others => '0');
+				signal sw0, sw1, sw2 : std_logic;
+				signal sw_latch, sw_latch_on : std_logic := '0';
+				begin
+
+				roulette_unit0 : roulette port map (
+				clk     => clk_roulette,
+				resetn   => resetn,
+				sw_in   => sw0,
+				led_out => led_out0);
+
+				roulette_unit1 : roulette port map (
+				clk     => clk_roulette,
+				resetn   => resetn,
+				sw_in   => sw1,
+				led_out => led_out1);
+
+				roulette_unit2 : roulette port map (
+				clk     => clk_roulette,
+				resetn   => resetn,
+				sw_in   => sw2,
+				led_out => led_out2);
+
+				process (clk)
+				begin
+				if clk'event and clk = '1' then  -- rising clock edge
+				div_counter <= div_counter + 1;
+				end if;
+				end process;
+
+				clk_div <=  div_counter(div_bits-1);
+				clk_roulette <= div_counter(22);
+
+				-- チャタリング除去
+				process (clk_div)
+				begin  -- process
+				if clk_div'event and clk_div = '1' then  -- rising clock edge
+				sw_node <= sw_in;
+				end if;
+				end process;
+
+				-- スイッチ入力を1パルスにして出力する回路
+				process (clk)
+				begin  -- process
+				if clk'event and clk = '1' then  -- rising clock edge
+				if sw_node = '0' and sw_latch_on = '0' then
+				sw_latch <= '1';
+				sw_latch_on <= '1';
+				elsif sw_node = '1' and sw_latch_on = '1' then
+				sw_latch <= '0';
+				sw_latch_on <= '0';
+				elsif sw_node = '0' and sw_latch_on = '1' then
+				sw_latch <= '0';
+				sw_latch_on <= '1';
+				end if;
+				end if;
+				end process;
+
+				-- スイッチによるパルスを受け取ってルーレットを止めていく回路
+				process (clk, resetn)
+				begin  -- process
+				if resetn = '0' then
+				sw0 <= '1';
+				sw1 <= '1';
+				sw2 <= '1';
+				elsif clk'event and clk = '1' then  -- rising clock edge
+				if sw_latch = '1' then
+				if (sw0 = '1' and sw1 = '1' and sw2 = '1') then
+				sw0 <= '0';
+				elsif (sw0 = '0' and sw1 = '1' and sw2 = '1') then
+				sw1 <= '0';
+				elsif (sw0 = '0' and sw1 = '0' and sw2 = '1') then
+				sw2 <= '0';
+				end if;
+				end if;
+				end if;
+				end process;
+				end rtl;
+
+			\end{lstlisting}
+
+
+
 \begin{thebibliography}{99}
 \bibitem{ref:指導書}
 「各種計算ハードウェアの活用～VHDLによるディジタル回路の設計～」
