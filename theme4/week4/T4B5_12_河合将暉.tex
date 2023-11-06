@@ -24,7 +24,7 @@
 	numbers=left,
 	numberstyle={\scriptsize},
 	stepnumber=1,
-	lineskip=-0.5ex,
+	lineskip=-05ex,
 	tabsize=2
 }
 \renewcommand{\lstlistingname}{ソースコード}
@@ -64,14 +64,14 @@
 		対戦型ルーレットシステム稼働時のFPGAボードを図\refeq{fig:FPGA}に示す。
 		\begin{figure}[H]
 		\centering
-		\includegraphics[width = 12cm]{figs/IMG_4552.PNG}
+		\includegraphics[width = 8cm]{figs/IMG_4552.PNG}
 		\caption{FPGAボード上面図}
 		\label{fig:FPGA}
 		\end{figure}
 	\subsection{参考にしたプログラム}
-		自由課題の対戦型ルーレットシステムを構成する際に\cite{ref:指導書}のSample08.vhdを参考に作成した。
+		自由課題の対戦型ルーレットシステムを構成する際に\cite{ref:指導書}のSample08vhdを参考に作成した。
 		Sample08ではデバックボード上のLEDを3個、FPGAボード上のタクトスイッチを2個用いてルーレットを構成されていた。
-		また、Sample08ではルーレット機能のみを記述したroulette.vhdをポートとして呼び出し、マッピングを行ってルーレット機能を
+		また、Sample08ではルーレット機能のみを記述したroulettevhdをポートとして呼び出し、マッピングを行ってルーレット機能を
 		動作させていた。
 
 	\subsection{使用器具}
@@ -168,7 +168,7 @@
 			1つのみであり、複数個を同時に動作させることは不可能であったが、本システムでそれを可能にした。
 			単純にLEDを増設しただけではストップ・リセットの動作が全て同期したままであり、揃えるLEDが
 			増えただけの大きなルーレットが構成されてしまう。
-			これを解消するために、\cite{ref:指導書}から参照したサンプルプログラムのSample08.vhdとroulette.vhdを一部変更した。
+			これを解消するために、\cite{ref:指導書}から参照したサンプルプログラムのSample08vhdとroulettevhdを一部変更した。
 			まず、Sample08におけるポート設定の変更箇所をソースコード\refeq{code:Sample08port}に示す。
 
 			\begin{lstlisting}[caption = Sample08のポート設定, label = code:Sample08port]
@@ -193,8 +193,8 @@
 			ルーレットを実装した段階ではled\_outは0〜2,7〜9の6個分しか使用していないが今後の
 			システム拡張を想定し、デバッグボード上のすべてのLEDに割当を行った。
 
-			次に、roulette.vhdにおけるルーレット機能のポート設定をソースコード\refeq{code:roulettePort}示す。
-			\begin{lstlisting}[caption = roulette.vhd::ルーレット機能のポート設定, label = code:roulettePort]
+			次に、roulettevhdにおけるルーレット機能のポート設定をソースコード\refeq{code:roulettePort}示す。
+			\begin{lstlisting}[caption = roulettevhd::ルーレット機能のポート設定, label = code:roulettePort]
 			entity roulette is
 			
 			port (
@@ -209,7 +209,7 @@
 			サンプルプログラムでは、sw\_inは1個しかなかったため、2個用意し、どちらからの入力にもルーレットをストップさせる割当にした。
 
 			Sample08でのルーレット機能のマッピングをソースコード\refeq{code:rouletteMap}に示す。
-			\begin{lstlisting}[caption = Sample08.vhd::ルーレット機能のマッピング, label = code:rouletteMap]
+			\begin{lstlisting}[caption = Sample08vhd::ルーレット機能のマッピング, label = code:rouletteMap]
 			component roulette
 			
 			port (
@@ -275,8 +275,8 @@
 		sw\_in2の入力を0にした。
 		反対に、roulette\_unit7〜9ではsw\_in2の入力に合わせて代入を行い、sw\_in1の入力を0にした。
 
-		ルーレットを止める機能のプログラムをソースコード\refeq{code:rouletteStop}に示す。
-		\begin{lstlisting}[caption = sample08::ルーレットを止める機能, label = code:rouletteStop]
+		ルーレットを止める機能のプログラムをソースコード\refeq{code:code:rouletteStop}に示す。
+		\begin{lstlisting}[caption = sample08::ルーレットを止める機能,label = code:rouletteStop]
 		  -- スイッチによるパルスを受け取ってルーレットを止めていく回路
 		process (clk, resetn1,resetn2)
 		begin  -- process
@@ -314,9 +314,22 @@
 		    end if;
 		end process;
 		\end{lstlisting}
+		スイッチ入力(sw\_latch)が1になる場合，つまりスイッチ入力があったときに
+		sw0～sw2に0を代入することによってLEDのルーレットをストップしている。
+		sw7～sw9も同様の動作を行っている。
 	\subsection{実装できなかった機能}
 		\subsubsection{得点表示機能}
+			本課題では2点先取のゲームを想定していたため，ルーレットが1回揃った段階でFPGAボード上のLED
+			を点灯させ，現在の得点を表示する必要があると考えた。
+			手法として，LED出力に用いているled\_outの値を参照して3つのLEDが同じ出力値の場合に
+			FPGAボード上のLED出力をHIGHにして実装を試みたが，led\_outの値を参照して条件分岐
+			をしようとすると変数型に関するエラーが出力された。
+		
 		\subsubsection{改善方法の検討}
+			先述のエラーの原因は条件分岐として参照する値が出力型だったためと考えられる。
+			改善するためにはポート設定をled\_out : out std\_logic\dots ではなく
+			led\_out : buffer std\_logic\dots とすると入出力の両方で用いることができるため，
+			エラーが出力されないと考えられる。
 \section{質疑回答}
 	\begin{itemize}
 		\item 3人対戦は可能か\\
