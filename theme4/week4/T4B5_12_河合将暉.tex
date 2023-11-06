@@ -61,7 +61,13 @@
 		先に2点獲得したプレイヤーの勝利というようなルールを提案する。
 		設計はこのルールをベースに設計を行ったが、ルール変更による拡張性にも視野に含めて
 		設計した。
-		対戦型ルーレットシステム稼働時のFPGAボードを図\refeq{}に示す。
+		対戦型ルーレットシステム稼働時のFPGAボードを図\refeq{fig:FPGA}に示す。
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width = 12cm]{figs/IMG_4552.PNG}
+		\caption{FPGAボード上面図}
+		\label{fig:FPGA}
+		\end{figure}
 	\subsection{参考にしたプログラム}
 		自由課題の対戦型ルーレットシステムを構成する際に\cite{ref:指導書}のSample08.vhdを参考に作成した。
 		Sample08ではデバックボード上のLEDを3個、FPGAボード上のタクトスイッチを2個用いてルーレットを構成されていた。
