@@ -22,11 +22,8 @@
 	breaklines=true,
 	columns=[l]{fullflexible},
 	numbers=left,
-	xrightmargin=0zw,
-	xleftmargin=3zw,
 	numberstyle={\scriptsize},
 	stepnumber=1,
-	numbersep=1zw,
 	lineskip=-0.5ex,
 	tabsize=2
 }
@@ -64,6 +61,7 @@
 		先に2点獲得したプレイヤーの勝利というようなルールを提案する。
 		設計はこのルールをベースに設計を行ったが、ルール変更による拡張性にも視野に含めて
 		設計した。
+		対戦型ルーレットシステム稼働時のFPGAボードを図\refeq{}に示す。
 	\subsection{参考にしたプログラム}
 		自由課題の対戦型ルーレットシステムを構成する際に\cite{ref:指導書}のSample08.vhdを参考に作成した。
 		Sample08ではデバックボード上のLEDを3個、FPGAボード上のタクトスイッチを2個用いてルーレットを構成されていた。
@@ -147,6 +145,8 @@
 		\label{tab:SWpin}
 		\begin{tabular}{c|cc|c} \toprule
 			部品名&ピン名称&入出力&ピン番号\\ \hline
+			LED&led\_check1&出力&\\
+			LED&led\_check2&出力&\\ \hline
 			スイッチ&sw\_in1&入力&PIN\_AB12\\
 			&sw\_in2&入力&PIN\_AG12\\
 			&resetn1&入力&PIN\_AB13\\
@@ -158,8 +158,156 @@
 		\end{table}
 	\subsection{実装した機能}
 		\subsubsection{ルーレットの独立化}
+			本課題で実装したシステムの独自性として、サンプルプログラムで構成されていたルーレットは
+			1つのみであり、複数個を同時に動作させることは不可能であったが、本システムでそれを可能にした。
+			単純にLEDを増設しただけではストップ・リセットの動作が全て同期したままであり、揃えるLEDが
+			増えただけの大きなルーレットが構成されてしまう。
+			これを解消するために、\cite{ref:指導書}から参照したサンプルプログラムのSample08.vhdとroulette.vhdを一部変更した。
+			まず、Sample08におけるポート設定の変更箇所をソースコード\refeq{code:Sample08port}に示す。
 
+			\begin{lstlisting}[caption = Sample08のポート設定, label = code:Sample08port]
+			entity sample08 is
+			generic (
+				div_bits : integer := 15);
+			
+			port (
+				clk     : in  std_logic;
+				resetn1 : in  std_logic;
+				resetn2 : in  std_logic;
+				sw_in1  : in  std_logic;
+				sw_in2  : in  std_logic;
+				led_check1 : out std_logic :='1';
+				led_check2 : out std_logic :='1';
+				led_out0, led_out1, led_out2, led_out3, led_out4, led_out5 ,led_out6, led_out7, led_out8, led_out9 : out std_logic_vector(3 downto 0));
 
+				end sample08;
+			\end{lstlisting}
+
+			ルーレット機能を複製するためにresetn,sw\_inを2つずつ用意し、led\_outを10個用意した。
+			ルーレットを実装した段階ではled\_outは0〜2,7〜9の6個分しか使用していないが今後の
+			システム拡張を想定し、デバッグボード上のすべてのLEDに割当を行った。
+
+			次に、roulette.vhdにおけるルーレット機能のポート設定をソースコード\refeq{code:roulettePort}示す。
+			\begin{lstlisting}[caption = roulette.vhd::ルーレット機能のポート設定, label = code:roulettePort]
+			entity roulette is
+			
+			port (
+				clk     : in  std_logic;
+				resetn  : in  std_logic;
+				sw_in1  : in  std_logic;
+				sw_in2  : in  std_logic;
+				led_out : out std_logic_vector(3 downto 0));
+
+			end roulette;
+			\end{lstlisting}
+			サンプルプログラムでは、sw\_inは1個しかなかったため、2個用意し、どちらからの入力にもルーレットをストップさせる割当にした。
+
+			Sample08でのルーレット機能のマッピングをソースコード\refeq{code:rouletteMap}に示す。
+			\begin{lstlisting}[caption = Sample08.vhd::ルーレット機能のマッピング, label = code:rouletteMap]
+			component roulette
+			
+			port (
+				clk     : in  std_logic;
+				resetn　: in  std_logic;
+				sw_in1  : in  std_logic;
+				sw_in2　: in  std_logic;
+				led_out : out std_logic_vector(3 downto 0));
+
+			end component;
+
+			signal clk_div, clk_roulette, sw_node1, sw_node2 : std_logic := '0';
+			signal div_counter : std_logic_vector(22 downto 0) := (others => '0');
+			signal sw0, sw1, sw2, sw3, sw4, sw5, sw6, sw7, sw8, sw9: std_logic;
+			signal sw_latch1, sw_latch_on1,sw_latch2, sw_latch_on2 : std_logic := '0';
+			begin
+
+			roulette_unit0 : roulette port map (
+				clk     => clk_roulette,
+				resetn   => resetn1,
+				sw_in1   => sw0,
+				sw_in2  => '0',
+				led_out => led_out0);
+			
+			roulette_unit1 : roulette port map (
+				clk     => clk_roulette,
+				resetn   => resetn1,
+				sw_in1   => sw1,
+				sw_in2  => '0',
+				led_out => led_out1);
+			
+			roulette_unit2 : roulette port map (
+				clk     => clk_roulette,
+				resetn   => resetn1,
+				sw_in1   => sw2,
+				sw_in2  => '0',
+				led_out => led_out2);
+			
+			roulette_unit7 : roulette port map (
+				clk     => clk_roulette,
+				resetn   => resetn2,
+				sw_in1  => '0',
+				sw_in2   => sw7,
+				led_out => led_out7);
+			
+			roulette_unit8 : roulette port map (
+				clk     => clk_roulette,
+				resetn   => resetn2,
+				sw_in1  => '0',
+				sw_in2   => sw8,
+				led_out => led_out8);
+				
+			roulette_unit9 : roulette port map (
+				clk     => clk_roulette,
+				resetn   => resetn2,
+				sw_in1  => '0',
+				sw_in2   => sw9,
+				led_out => led_out9);
+			\end{lstlisting}
+
+		roulette\_unit0〜2ではsw\_in1の入力に合わせてルーレットをストップさせるため、
+		sw\_in1の入力をsw0〜2に代入した。また、sw\_in2の入力に影響を受けないように
+		sw\_in2の入力を0にした。
+		反対に、roulette\_unit7〜9ではsw\_in2の入力に合わせて代入を行い、sw\_in1の入力を0にした。
+
+		ルーレットを止める機能のプログラムをソースコード\refeq{code:rouletteStop}に示す。
+		\begin{lstlisting}[caption = sample08::ルーレットを止める機能, label = code:rouletteStop]
+		  -- スイッチによるパルスを受け取ってルーレットを止めていく回路
+		process (clk, resetn1,resetn2)
+		begin  -- process
+			if resetn1 = '0' then
+			  sw0 <= '1';
+			  sw1 <= '1';
+			  sw2 <= '1';
+
+			elsif clk'event and clk = '1' then  -- rising clock edge
+			  if sw_latch1 = '1' then
+			    if (sw0 = '1' and sw1 = '1' and sw2 = '1') then
+			      sw0 <= '0';
+			    elsif (sw0 = '0' and sw1 = '1' and sw2 = '1') then
+			      sw1 <= '0';
+			    elsif (sw0 = '0' and sw1 = '0' and sw2 = '1') then
+			      sw2 <= '0';
+			    end if;
+			  end if;
+			end if;
+				
+			if resetn2 = '0' then
+			  sw7 <= '1';
+			  sw8 <= '1';
+			  sw9 <= '1';
+			elsif clk'event and clk = '1' then  -- rising clock edge
+			  if sw_latch2 = '1' then
+			    if (sw7 = '1' and sw8 = '1' and sw9 = '1') then
+			      sw7 <= '0';
+			    elsif (sw7 = '0' and sw8 = '1' and sw9 = '1') then
+			      sw8 <= '0';
+			    elsif (sw7 = '0' and sw8 = '0' and sw9 = '1') then
+			      sw9 <= '0';
+			    end if;
+			  end if;
+		    end if;
+		end process;
+		\end{lstlisting}
 	\subsection{実装できなかった機能}
 		\subsubsection{得点表示機能}
 		\subsubsection{改善方法の検討}
@@ -180,7 +328,7 @@
 			別のボタンを押したほうがすぐにルーレットをやり直すことができてユーザビリティが
 			高いと感じたため、ストップとリセットのスイッチを分けて実装した。\\
 	\end{itemize}
-\section{所感}
+
 \begin{thebibliography}{99}
 \bibitem{ref:指導書}
 「実験実習指導書『各種計算ハードウェアの活用〜VHDLによるディジタル回路の設計〜』」\\
