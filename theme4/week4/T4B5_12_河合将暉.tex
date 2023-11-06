@@ -1,4 +1,4 @@
-\documentclass[11pt]{ltjsarticle}
+\documentclass{ltjsarticle}
 %\usepackage[dvipdfmx]{color}
 \usepackage{booktabs}
 \usepackage{mathcomp}
@@ -32,8 +32,8 @@
 }
 \renewcommand{\lstlistingname}{ソースコード}
 
-\title{}
-\adviser{}
+\title{VHDLによるディジタル回路の設計(自由課題)}
+\adviser{木場 隼介 先生}
 
 \sdate{令和5年10月19日}
 \edate{令和5年11月2日}
@@ -42,7 +42,7 @@
 
 \grade{5}
 \anumber{}
-\gnumber{}
+\gnumber{B}
 \name{河合 将暉}
 \jname{}
 \comment{}
@@ -50,29 +50,140 @@
 \maketitle
 
 \section{目的}
-	
-\section{解説}
-	\subsection{}
-\section{実験内容}
+	自由課題を通してVHDLの構文規則や処理方法について詳しく知るとともに、
+	プレゼンテーションを行い、課題に対する説明および発表能力を養うことを目的とする。
+\section{自由課題}
+	\subsection{仕様}
+		本実験の自由課題のコンセプトとして、2人で対戦できるルーレットをFPGAで構成することを
+		目標とした。仕様としては、FPGAデバッグボードに搭載されている10個のLEDのうち、
+		左右から3個ずつのLEDを用いてルーレットを2組構成した。
+		ルーレットのストップ・リセットにはFPGAボードに標準搭載されているタクトスイッチ4個を
+		使用して1人あたりストップ・リセット用に2個スイッチを割り当てた。
+
+		対戦のルールとして、ルーレットが揃う(LED3個が同色になる)と1点加点され、
+		先に2点獲得したプレイヤーの勝利というようなルールを提案する。
+		設計はこのルールをベースに設計を行ったが、ルール変更による拡張性にも視野に含めて
+		設計した。
+	\subsection{参考にしたプログラム}
+		自由課題の対戦型ルーレットシステムを構成する際に\cite{ref:指導書}のSample08.vhdを参考に作成した。
+		Sample08ではデバックボード上のLEDを3個、FPGAボード上のタクトスイッチを2個用いてルーレットを構成されていた。
+		また、Sample08ではルーレット機能のみを記述したroulette.vhdをポートとして呼び出し、マッピングを行ってルーレット機能を
+		動作させていた。
+
 	\subsection{使用器具}
+		以下に、本課題で使用した器具を表\refeq{tab:used}に示す。
+	\begin{table}[H]
+	\begin{center}
+	\caption{使用器具}
+	\label{tab:used}
+	\begin{tabular}{clllll} \toprule
+	No&\multicolumn{1}{l}{機器名}&\multicolumn{1}{l}{型番}&\multicolumn{1}{l}{シリアルNo}&\multicolumn{1}{l}{備考}\\ \hline
+	1&FPGAボード&Cyclone V E FPGA&2&シリアルNoは\\
+	&&Development Kit&&外箱の番号を記載\\
+	2&PC&ASUS TAF-Gaming&&\\
+	\bottomrule
+	\end{tabular}
+	\end{center}
+	\end{table}
+
+\clearpage
+\section{プログラム解説}
+	\subsection{ピン割当}
+		本課題でのデバッグボード上LEDのピン割当を表\refeq{tab:LEDpin}に示す。
 		\begin{table}[H]
 		\begin{center}
-		\caption{使用器具}
-		\label{tab:used}
-		\begin{tabular}{clllll} \toprule
-		No&\multicolumn{1}{l}{機器名}&\multicolumn{1}{l}{型番}&\multicolumn{1}{l}{シリアルNo}&\multicolumn{1}{l}{備考}\\ \hline
-		1&FPGAボード&&&\\
-		2&PC&&&\\
+		\caption{デバッグボードLEDのピン割当}
+		\label{tab:LEDpin}
+		\begin{tabular}{cc|c} \toprule
+			ピン名称&入出力&ピン番号\\ \hline
+			led\_out0[0]&出力&PIN\_AF21\\
+			led\_out0[1]&出力&PIN\_AJ20\\
+			led\_out0[2]&出力&PIN\_AG22\\
+			led\_out0[3]&出力&PIN\_AK20\\
+			led\_out1[0]&出力&PIN\_AF20\\
+			led\_out1[1]&出力&PIN\_AJ19\\
+			led\_out1[2]&出力&PIN\_AG21\\
+			led\_out1[3]&出力&PIN\_AK18\\
+			led\_out2[0]&出力&PIN\_AF18\\
+			led\_out2[1]&出力&PIN\_AJ17\\
+			led\_out2[2]&出力&PIN\_AF19\\
+			led\_out2[3]&出力&PIN\_AJ18\\
+			led\_out3[0]&出力&PIN\_AG18\\
+			led\_out3[1]&出力&PIN\_AG24\\
+			led\_out3[2]&出力&PIN\_AG19\\
+			led\_out3[3]&出力&PIN\_AH25\\
+			led\_out4[0]&出力&PIN\_AK16\\
+			led\_out4[1]&出力&PIN\_AH19\\
+			led\_out4[2]&出力&PIN\_AK17\\
+			led\_out4[3]&出力&PIN\_AH20\\
+			led\_out5[0]&出力&PIN\_AF16\\
+			led\_out5[1]&出力&PIN\_AG17\\
+			led\_out5[2]&出力&PIN\_AG16\\
+			led\_out5[3]&出力&PIN\_AH17\\
+			led\_out6[0]&出力&PIN\_AE16\\
+			led\_out6[1]&出力&PIN\_AJ15\\
+			led\_out6[2]&出力&PIN\_AF15\\
+			led\_out6[3]&出力&PIN\_AK15\\
+			led\_out7[0]&出力&PIN\_AD17\\
+			led\_out7[1]&出力&PIN\_AH14\\
+			led\_out7[2]&出力&PIN\_AE17\\
+			led\_out7[3]&出力&PIN\_AH15\\
+			led\_out8[0]&出力&PIN\_AD18\\
+			led\_out8[1]&出力&PIN\_AE15\\
+			led\_out8[2]&出力&PIN\_AE18\\
+			led\_out8[3]&出力&PIN\_AF14\\
+			led\_out9[0]&出力&PIN\_Y15\\
+			led\_out9[1]&出力&PIN\_AG23\\
+			led\_out9[2]&出力&PIN\_AA15\\
+			led\_out9[3]&出力&PIN\_AH22\\ \hline
+		\end{tabular}
+		\end{center}
+		\end{table}
+
+	本課題でのFPGAボード上スイッチのピン割当を表\refeq{tab:SWpin}に示す。
+		\begin{table}[H]
+		\begin{center}
+		\caption{FPGAボードのピン割当}
+		\label{tab:SWpin}
+		\begin{tabular}{c|cc|c} \toprule
+			部品名&ピン名称&入出力&ピン番号\\ \hline
+			スイッチ&sw\_in1&入力&PIN\_AB12\\
+			&sw\_in2&入力&PIN\_AG12\\
+			&resetn1&入力&PIN\_AB13\\
+			&resetn2&入力&PIN\_AF13\\ \hline
+			クロック発振器&clk&入力&PIN\_P22\\
 		\bottomrule
 		\end{tabular}
 		\end{center}
 		\end{table}
-	\subsection{実験方法}
-\section{実験結果}
-\section{考察}
+	\subsection{実装した機能}
+		\subsubsection{ルーレットの独立化}
+
+
+	\subsection{実装できなかった機能}
+		\subsubsection{得点表示機能}
+		\subsubsection{改善方法の検討}
+\section{質疑回答}
+	\begin{itemize}
+		\item 3人対戦は可能か\\
+			現在構成しているシステムではFPGAボードに搭載されているスイッチの数が足りないため、不可能である。\\
+		\item LEDを3個しか使用していない理由\\
+			FPGAボード上で2人のプレイヤーがスイッチを押そうとすると相手の手で遮られて3個以上は見えづらいため
+			ルーレットとしてある程度難しい3個で妥協している。\\
+		\item プレイヤー表示を下のLEDの色分けで実装できないか\\
+			FPGAボード上のLEDは単色LEDで緑色しか表示できないため、その方式では実装できない。
+			デバックボード上ではLEDが4個余っているため、そのLEDを用いれば可能である。\\
+		\item リセットボタンを用意するのではなくストップボタンの4回目でリセットにすればよいのではないか\\
+			対戦人数を増やすという観点ではいい提案だと感じた。
+			今回の課題の設計思想では、2人対戦をメインとしており、ユーザビリティの観点で
+			ルーレットが揃わなかった際にボタンを数回連打するのと1回別のボタンを押すのでは
+			別のボタンを押したほうがすぐにルーレットをやり直すことができてユーザビリティが
+			高いと感じたため、ストップとリセットのスイッチを分けて実装した。\\
+	\end{itemize}
 \section{所感}
 \begin{thebibliography}{99}
 \bibitem{ref:指導書}
-「実験実習指導書」神戸高専電子工学科 pp.
+「実験実習指導書『各種計算ハードウェアの活用〜VHDLによるディジタル回路の設計〜』」\\
+神戸高専電子工学科 pp.28-36
 \end{thebibliography}
 \end{document}
