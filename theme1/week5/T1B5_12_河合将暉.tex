@@ -72,17 +72,17 @@
 		\end{table}
 
 	\subsection{圧電セラミック素子への電圧印加による共振現象の測定}
-		図にLDと差分増幅回路を用いた圧電セラミック素子への電圧印加による測定システムを示す．
+		図\refeq{fig:圧電セラミック素子測定系}にLDと差分増幅回路を用いた圧電セラミック素子への電圧印加による測定システムを示す．
 		PZTの厚さdは電極板とPZTとを積層した厚さと電極板のみの厚さの差分から求められる．
 		\begin{figure}[H]
 		\centering
-		\includegraphics[width = 10cm]{figs/IMG_0321.JPG}
+		\includegraphics[width = 7cm]{figs/IMG_0321.JPG}
 		\caption{圧電セラミック素子への電圧印加による共振現象の測定系ブロック図}
 		\label{fig:圧電セラミック素子測定系}
 		\end{figure}
 		\subsubsection{実験1}
 			圧電セラミック素子は，形状の異なる三種類(a:大,b:中,c:小)を用いるが，
-			はじめに，圧電セラミック素子aを用いて行った．図\refeq{}に示すように，
+			はじめに，圧電セラミック素子aを用いて行った．図\refeq{fig:圧電セラミック素子測定系}に示すように，
 			測定システムを構成し，圧電セラミック素子の端子にファンクションジェネレータ
 			からの出力を接続した．また，電圧と周波数計測用にデジタルマルチメータの端子
 			も接続する．正弦波信号を選択し，周波数は2.0\,kHz～4.0\,kHzの範囲で
@@ -109,58 +109,332 @@
 			この時の周波数と振幅値の値を測定した．
 
 	\subsection{音源の周波数変化による振動状態の光測定}
-		\subsubsection{差分増幅回路を用いた光信号検出}
-			\subsubsection{実験1:ゲイン抵抗($\mathrm{R_G}$)を変化した場合の出力信号の測定実験}
-				
-				図に示すような差分増幅回路と光学系を構成し，半導体レーザから出射した
-				レーザビームを調整用ミラーの角度を変えながら，音源が入るプラスチックBOX(大)の入口に
-				取り付けたミラーに照射した．このミラーから2分割フォトダイオードまでの距離は，15～30\,cmに設定した．
-				このミラーから反射されたレーザビームを2分割フォトダイオードのAとBの2つの受光部の中心あたりに入射させた．
-				出力波形が明瞭に観察できる光照射位置に調整した．
+		LDを用いた音源の振動状態の光測定システムのブロック図を図\refeq{fig:光測定}に示す．
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width = 7cm]{figs/IMG_0322.JPG}
+		\caption{LDを用いた音源の振動状態の光測定系ブロック図}
+		\label{fig:光測定}
+		\end{figure}
+		\subsubsection{実験1:ゲイン抵抗($\mathrm{R_G}$)を変化した場合の出力信号の測定実験}
+			
+			図に示すような差分増幅回路と光学系を構成し，半導体レーザから出射した
+			レーザビームを調整用ミラーの角度を変えながら，音源が入るプラスチックBOX(大)の入口に
+			取り付けたミラーに照射した．このミラーから2分割フォトダイオードまでの距離は，15～30\,cmに設定した．
+			このミラーから反射されたレーザビームを2分割フォトダイオードのAとBの2つの受光部の中心あたりに入射させた．
+			出力波形が明瞭に観察できる光照射位置に調整した．
 
-				差分増幅回路のゲイン抵抗($\mathrm{R_G}$)を調整し，オシロスコープ上に出力波形をモニターした．
-				この時，差分増幅回路のゲイン抵抗値をいくつかの値に変化し，音源の周波数設定を変更しながら出力信号波形を
-				検出しデータを取得した．
+			差分増幅回路のゲイン抵抗($\mathrm{R_G}$)を調整し，オシロスコープ上に出力波形をモニターした．
+			この時，差分増幅回路のゲイン抵抗値をいくつかの値に変化し，音源の周波数設定を変更しながら出力信号波形を
+			検出しデータを取得した．
 
-				音源としては，遠隔で操作できるBluetooth対応の小型スピーカーをプラスチック容器に封入し，
-				入口にレーザ反射用のミラーを取り付ける．小型スピーカへの信号入力はPC上にインストールされたフリーソフトの
-				WabeGeneにより正弦波(sin波)を入力した．出力(音の大きさ)は，PCの音声出力設定で行った．
+			音源としては，遠隔で操作できるBluetooth対応の小型スピーカーをプラスチック容器に封入し，
+			入口にレーザ反射用のミラーを取り付ける．小型スピーカへの信号入力はPC上にインストールされたフリーソフトの
+			WabeGeneにより正弦波(sin波)を入力した．出力(音の大きさ)は，PCの音声出力設定で行った．
 
-				\begin{enumerate}
-					\item ゲイン抵抗$\mathrm{R_G}$は，オペアンプ(INA103)への電池を外した(電圧OFF)状態で，
-						オペアンプの6番ピンと13番ピン間の抵抗値をデジタルマルチメータにより測定する。
-						2つの可変抵抗を調整して$\mathrm{R_G}$の値を設定し，周波数を変化した場合の波形をオシロスコープ上で観察し，
-						この波形のデータをUSBに記録した．
-					\item 実験では，およそ$\mathrm{R_G} = 100\,\Omega, \mathrm{R_G} = 500\,\Omega, \mathrm{R_G} = 1\,\mathrm{k\Omega}$
-						のように3段階に設定した．それぞれの$\mathrm{R_G}$設定値において，周波数をPC上で100\,Hz, 150\,Hz, 300\,Hz, 500\,Hz, 1\,kHzまで
-						5段階に変化させた。これらの出力波形をオシロスコープ上で検出して波形データを取得した．
-					\item 3つの$\mathrm{R_G}$の値のそれぞれに対して取得した波形データから各測定周波数に対する振幅値の値を求める。
-						各$\mathrm{R_G}$の値において，横軸:周波数-縦軸:振幅としたグラフを作成し，各自で設定した$\mathrm{R_G}$の測定値と出力電圧との関係を評価した．
-				\end{enumerate}
+			\begin{enumerate}
+				\item ゲイン抵抗$\mathrm{R_G}$は，オペアンプ(INA103)への電池を外した(電圧OFF)状態で，
+					オペアンプの6番ピンと13番ピン間の抵抗値をデジタルマルチメータにより測定する。
+					2つの可変抵抗を調整して$\mathrm{R_G}$の値を設定し，周波数を変化した場合の波形をオシロスコープ上で観察し，
+					この波形のデータをUSBに記録した．
+				\item 実験では，およそ$\mathrm{R_G} = 100\,\Omega, \mathrm{R_G} = 500\,\Omega, \mathrm{R_G} = 1\,\mathrm{k\Omega}$
+					のように3段階に設定した．それぞれの$\mathrm{R_G}$設定値において，周波数をPC上で100\,Hz, 150\,Hz, 300\,Hz, 500\,Hz, 1\,kHzまで
+					5段階に変化させた。これらの出力波形をオシロスコープ上で検出して波形データを取得した．
+				\item 3つの$\mathrm{R_G}$の値のそれぞれに対して取得した波形データから各測定周波数に対する振幅値の値を求める。
+					各$\mathrm{R_G}$の値において，横軸:周波数-縦軸:振幅としたグラフを作成し，各自で設定した$\mathrm{R_G}$の測定値と出力電圧との関係を評価した．
+			\end{enumerate}
 
-			\subsubsection{実験2:材料の違いによる出力信号測定}
-				図\refeq{}に示す即提携において，音源のスピーカーを大小ペアの2つのプラスチックBOXの小さい容器に封入し，これを大きな方のBOXに閉じ込める。
-				調整ミラーを用いてスピーカの入るプラスチック容器の表面にレーザビームを照射し，この反射光を2分割フォトダイオード上に入射した．
+		\subsubsection{実験2:材料の違いによる出力信号測定}
+			図\refeq{fig:光測定}に示す即提携において，音源のスピーカーを大小ペアの2つのプラスチックBOXの小さい容器に封入し，これを大きな方のBOXに閉じ込める。
+			調整ミラーを用いてスピーカの入るプラスチック容器の表面にレーザビームを照射し，この反射光を2分割フォトダイオード上に入射した．
 
-				差分増幅回路のゲイン抵抗($\mathrm{R_G}$)は100\,\Omega 程度に調整し，周波数をPC上で100\,Hz, 150\,Hz, 300\,Hz, 500\,Hz, 1\,kHzまで
-				5段階に変化させた。これらの出力波形をオシロスコープ上で検出して波形データを取得した．
+			差分増幅回路のゲイン抵抗($\mathrm{R_G}$)は100\,\Omega 程度に調整し，周波数をPC上で100\,Hz, 150\,Hz, 300\,Hz, 500\,Hz, 1\,kHzまで
+			5段階に変化させた。これらの出力波形をオシロスコープ上で検出して波形データを取得した．
 
-				プラスチック材料からの反射光により求めた測定値を基に横軸:周波数-縦軸:振幅としたグラフを作成し，3.3.2項の実験で作成したグラフを比較して
-				プラスチック材質の違いによる出力信号の変化を評価した．
+			プラスチック材料からの反射光により求めた測定値を基に横軸:周波数-縦軸:振幅としたグラフを作成し，3.3.2項の実験で作成したグラフを比較して
+			プラスチック材質の違いによる出力信号の変化を評価した．
 
-			\subsubsection{実験3:音源から検出器までの距離を変化させた場合の出力信号測定}
-				\begin{enumerate}
-					\item 図\refeq{}に示す測定系において，音源をプラスチックBOX(大)にスピーカーを入れたものに交換し，表面に反射ミラーを取り付ける。
-						このミラーから2分割フォトダイオードまでの距離をおよそ20\,cm, 40\,cm, 60\,cm程度の3段階に変化させた．
-						この時，ゲイン抵抗は100\,\Omega 程度に設定した．
-					\item 各距離において，周波数をPC上で100\,Hz, 150\,Hz, 300\,Hz, 500\,Hz, 1\,kHzまで5段階に変化させた。
-						これらの出力波形をオシロスコープ上で検出して波形データを取得した．
-					\item 3段階の距離変化において取得した波形データから各測定周波数に対する振幅値の値を求める。
-						各距離において，横軸:周波数-縦軸:振幅としたグラフを作成し，距離と出力電圧との関係を評価する。
-				\end{enumerate}
+		\subsubsection{実験3:音源から検出器までの距離を変化させた場合の出力信号測定}
+			\begin{enumerate}
+				\item 図\refeq{fig:光測定}に示す測定系において，音源をプラスチックBOX(大)にスピーカーを入れたものに交換し，表面に反射ミラーを取り付ける。
+					このミラーから2分割フォトダイオードまでの距離をおよそ20\,cm, 40\,cm, 60\,cm程度の3段階に変化させた．
+					この時，ゲイン抵抗は100\,\Omega 程度に設定した．
+				\item 各距離において，周波数をPC上で100\,Hz, 150\,Hz, 300\,Hz, 500\,Hz, 1\,kHzまで5段階に変化させた。
+					これらの出力波形をオシロスコープ上で検出して波形データを取得した．
+				\item 3段階の距離変化において取得した波形データから各測定周波数に対する振幅値の値を求める。
+					各距離において，横軸:周波数-縦軸:振幅としたグラフを作成し，距離と出力電圧との関係を評価する。
+			\end{enumerate}
 \section{実験結果}
 	\subsection{圧電セラミック素子への電圧印加による共振現象の測定}
-	\subsection{差分増幅回路を用いた光信号検出}
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width = 12cm]{figs/week4big.JPG}
+		\caption{圧電セラミック素子aを用いた測定系の出力波形}
+		\label{fig:圧電a}
+		\end{figure}
+
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width = 12cm]{figs/week4mid.JPG}
+		\caption{圧電セラミック素子bを用いた測定系の出力波形}
+		\label{fig:圧電b}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width = 12cm]{figs/week4small.png}
+		\caption{圧電セラミック素子cを用いた測定系の出力波形}
+		\label{fig:圧電c}
+		\end{figure}
+		
+	\subsection{音源の周波数変化による振動状態の光測定}
+		\subsubsection{差分増幅回路を用いた光信号検出}
+			\begin{figure}[H]
+			\centering
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0006TEK.PNG}
+			\subcaption{入力音源100\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0007TEK.PNG}
+			\subcaption{入力音源150\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0008TEK.PNG}
+			\subcaption{入力音源300Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0009TEK.PNG}
+			\subcaption{入力音源500\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0010TEK.PNG}
+			\subcaption{入力音源1\,kHzの波形}
+			\end{minipage}
+			\caption{$\mathrm{R_G}$ = 100\,\Omega の出力波形}
+			\label{fig:week5-1-100}
+			\end{figure}
+
+			\begin{figure}[H]
+			\centering
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0011TEK.PNG}
+			\subcaption{入力音源100\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0012TEK.PNG}
+			\subcaption{入力音源150\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0013TEK.PNG}
+			\subcaption{入力音源300\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0014TEK.PNG}
+			\subcaption{入力音源500\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0015TEK.PNG}
+			\subcaption{入力音源1\,kHzの波形}
+			\end{minipage}
+			\caption{$\mathrm{R_G}$ = 500\,\Omega の出力波形}
+			\label{fig:week5-1-500}
+			\end{figure}
+
+			\begin{figure}[H]
+			\centering
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0016TEK.PNG}
+			\subcaption{入力音源100\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0017TEK.PNG}
+			\subcaption{入力音源150\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0018TEK.PNG}
+			\subcaption{入力音源300\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0019TEK.PNG}
+			\subcaption{入力音源500\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0020TEK.PNG}
+			\subcaption{入力音源1\,kHzの波形}
+			\end{minipage}
+			\caption{$\mathrm{R_G}$ = 1\,k\Omega の出力波形}
+			\label{fig:week5-1-1k}
+			\end{figure}
+
+		\subsubsection{材料の違いによる出力信号測定}
+			\begin{figure}[H]
+			\centering
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0021TEK.PNG}
+			\subcaption{入力音源100\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0022TEK.PNG}
+			\subcaption{入力音源150\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0023TEK.PNG}
+			\subcaption{入力音源300\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0024TEK.PNG}
+			\subcaption{入力音源500\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0025TEK.PNG}
+			\subcaption{入力音源1\,kHzの波形}
+			\end{minipage}
+			\caption{2重プラスチックBOXでの$\mathrm{R_G}$ = 100\Omega の出力波形}
+			\label{fig:week5-2}
+			\end{figure}
+		\subsubsection{音源から検出器までの距離を変化させた場合の出力信号測定}
+			\begin{figure}[H]
+			\centering
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0026TEK.PNG}
+			\subcaption{入力音源100\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0027TEK.PNG}
+			\subcaption{入力音源150\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0028TEK.PNG}
+			\subcaption{入力音源300\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0029TEK.PNG}
+			\subcaption{入力音源500\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0030TEK.PNG}
+			\subcaption{入力音源1\,kHzの波形}
+			\end{minipage}
+			\caption{音源-検出器間の距離が20\,cmの出力波形}
+			\label{fig:week5-3-20}
+			\end{figure}
+
+			\begin{figure}[H]
+			\centering
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0031TEK.PNG}
+			\subcaption{入力音源100\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0032TEK.PNG}
+			\subcaption{入力音源150\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0033TEK.PNG}
+			\subcaption{入力音源300\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0034TEK.PNG}
+			\subcaption{入力音源500\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0035TEK.PNG}
+			\subcaption{入力音源1\,kHzの波形}
+			\end{minipage}
+			\caption{音源-検出器間の距離が40\,cmの出力波形}
+			\label{fig:week5-3-40}
+			\end{figure}
+
+			\begin{figure}[H]
+			\centering
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0036TEK.PNG}
+			\subcaption{入力音源100\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0037TEK.PNG}
+			\subcaption{入力音源150\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0038TEK.PNG}
+			\subcaption{入力音源300\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0039TEK.PNG}
+			\subcaption{入力音源500\,Hzの波形}
+			\end{minipage}
+			\hspace{0.04\columnwidth}
+			\begin{minipage}{0.4\columnwidth}
+			\centering
+			\includegraphics[width = \columnwidth]{figs/F0040TEK.PNG}
+			\subcaption{入力音源1\,kHzの波形}
+			\end{minipage}
+			\caption{音源-検出器間の距離が60\,cmの出力波形}
+			\label{fig:week5-3-60}
+			\end{figure}
+
 \section{考察}
 	\begin{enumerate}
 		\item 2分割フォトダイオードからの出力信号波形を明瞭に得るには，受光部へのレーザビームの照射位置や面積をどのように調整する必要があるか説明する．\\
@@ -173,9 +447,7 @@
 		\item 音源が入るBOX用の反射材としてミラー板と，プラスチック容器の2種類を比較した．これらの各反射材の厚さを調べ，物理的形状の違いが出力波形にどのように影響しているか説明する．\\
 			ミラー板の厚さは575\,μm,プラスチック容器の厚さ2014\,μmであった．実験1と実験2のゲイン抵抗100\,\Omega の場合の出力値を比較すると，ミラー板の方は100～300\,Hzまでは周波数に比例して振幅値が上昇していることがわかる．
 			次に，プラスチック容器の場合は周波数が増えるにつれ，指数関数的に減衰していることがわかる．また，周波数ごとの振幅を比較すると，測定した全ての周波数において
-			ミラー板の方がプラスチック容器よりも振幅が大きくなっていることが読み取れる．
-
-			したがって，反射材の厚さに反比例して振幅が変化するように影響しているとわかる．
+			ミラー板の方がプラスチック容器よりも振幅が大きくなっていることが読み取れる．したがって，反射材の厚さに反比例して振幅が変化するように影響しているとわかる．
 		\item 音源の周波数の設定値によっては出力波形に入力信号と異なる周波数が重畳したり，ひずみやノイズが生じたりする場合があるが，これらの現象にはどのような要因が影響していると考えられるか.\\
 			出力波形の歪みについて，波形全体が60Hz程度で振動していた．これは，測定場所の照明が外乱として入力信号に加えられていると考えられる。
 			特に，周波数が高くなると出力波形の線が太くなった(ノイズが発生した)ため，同じ外乱成分でも周波数が高くなるにつれ，振幅が低下してS/N比が低くなってしまい，
