@@ -20,10 +20,10 @@
 \rdate{}
 
 \grade{5}
-\anumber{}
+\anumber{12}
 \gnumber{B}
 \name{河合将暉}
-\jname{岡田}
+\jname{岡田晃空}
 \comment{}
 \begin{document}
 \maketitle
@@ -48,6 +48,11 @@
 		\caption{圧電素子の構造図}
 		\label{fig:圧電素子}
 		\end{figure}
+		構造が単純で、電圧を加えるだけで機械的な動作なしに微細な動きや振動が発生するため、丈夫で小型化も容易であり、
+		精密機械の部品として優れている。クォーツ時計の水晶振動子や超音波診断装置、携帯電話用小型スピーカ、ハードディスク
+		読み取り装置、水槽内に置いた振動子の超音波の高速な振動で細かな蒸気を発生する超音波加湿器など、さまざまな製品に
+		圧電素子が使われている。
+\clearpage
 \section{実験方法}
 	\subsection{使用器具}
 		本実験での使用器具を表\refeq{tab:used}に示す．
@@ -108,6 +113,14 @@
 			3.0\,Vにし，ゲイン抵抗は実験1と同様の値を用いた．また，出力信号の振幅が最も大きく検出された周波数の波形を記録し，
 			この時の周波数と振幅値の値を測定した．
 
+		\subsubsection{共振周波数とキャパシタンスの関係}
+			3種類の圧電セラミック素子の面積と膜厚を測定し，PZTのキャパシタンスを
+			nF単位で計算した．PZTの直径は定規で測定し，PZTの厚さは電極板とPZTとを積層した厚さをマイクロメータで測定し，
+			積層した厚さから電極板のみの厚さの差分を取って計算した．PZTのキャパシタンスの比誘電率$\mathrm{ε_r}$は1400を用いて
+			キャパシタンスの理論式に代入して計算した．
+			3種類の圧電セラミック素子の形状から求めたキャパシタンスとそれらの共振周波数を横軸:キャパシタンス-縦軸：周波数として
+			グラフ化した．
+
 	\subsection{音源の周波数変化による振動状態の光測定}
 		LDを用いた音源の振動状態の光測定システムのブロック図を図\refeq{fig:光測定}に示す．
 		\begin{figure}[H]
@@ -144,14 +157,14 @@
 					各$\mathrm{R_G}$の値において，横軸:周波数-縦軸:振幅としたグラフを作成し，各自で設定した$\mathrm{R_G}$の測定値と出力電圧との関係を評価した．
 			\end{enumerate}
 
-		\subsubsection{実験2:材料の違いによる出力信号測定}
-			図\refeq{fig:光測定}に示す即提携において，音源のスピーカーを大小ペアの2つのプラスチックBOXの小さい容器に封入し，これを大きな方のBOXに閉じ込める。
+		\subsubsection{実験2:材質の違いによる出力信号測定}
+			図\refeq{fig:光測定}に示す測定系において，音源のスピーカーを大小ペアの2つのプラスチックBOXの小さい容器に封入し，これを大きな方のBOXに閉じ込める。
 			調整ミラーを用いてスピーカの入るプラスチック容器の表面にレーザビームを照射し，この反射光を2分割フォトダイオード上に入射した．
 
 			差分増幅回路のゲイン抵抗($\mathrm{R_G}$)は100\,\Omega 程度に調整し，周波数をPC上で100\,Hz, 150\,Hz, 300\,Hz, 500\,Hz, 1\,kHzまで
 			5段階に変化させた。これらの出力波形をオシロスコープ上で検出して波形データを取得した．
 
-			プラスチック材料からの反射光により求めた測定値を基に横軸:周波数-縦軸:振幅としたグラフを作成し，3.3.2項の実験で作成したグラフを比較して
+			プラスチック材質からの反射光により求めた測定値を基に横軸:周波数-縦軸:振幅としたグラフを作成し，3.3.2項の実験で作成したグラフを比較して
 			プラスチック材質の違いによる出力信号の変化を評価した．
 
 		\subsubsection{実験3:音源から検出器までの距離を変化させた場合の出力信号測定}
@@ -166,20 +179,7 @@
 			\end{enumerate}
 \section{実験結果}
 	\subsection{圧電セラミック素子への電圧印加による共振現象の測定}
-		圧電セラミック素子ごとの共振周波数と振幅の関係を表\refeq{tab:各圧電セラミック素子}に示す。
-		\begin{table}[H]
-		\begin{center}
-		\caption{圧電セラミック素子による周波数-振幅}
-		\label{tab:各圧電セラミック素子}
-		\begin{tabular}{c|cc} \toprule
-		圧電素子& 周波数[Hz]& 振幅[V] \\ \hline
-		a(大) & 2382 & 0.896 \\
-		b(中) & 5767 & 0.288 \\
-		c(小) & 7478 & 0.704 \\ \bottomrule
-		\end{tabular}
-		\end{center}
-		\end{table}
-	
+		実験1～実験3で測定した各圧電セラミック素子ごとの出力波形を図\refeq{fig:圧電a}～\refeq{fig:圧電c}に示す．
 		\begin{figure}[H]
 		\centering
 		\includegraphics[width = 12cm]{figs/week4big.JPG}
@@ -200,26 +200,72 @@
 		\caption{圧電セラミック素子cを用いた測定系の出力波形}
 		\label{fig:圧電c}
 		\end{figure}
-		
+
+		圧電セラミック素子ごとの共振周波数と振幅の関係表を表\refeq{tab:各圧電セラミック素子}に，
+		共振周波数-振幅特性図を図\refeq{fig:各圧電セラミック素子}に示す。
+		\begin{table}[H]
+		\begin{center}
+		\caption{各圧電セラミック素子による共振周波数と振幅の関係表}
+		\label{tab:各圧電セラミック素子}
+		\begin{tabular}{c|cc} \toprule
+		圧電素子& 周波数[Hz]& 振幅[V] \\ \hline
+		a(大) & 2382 & 0.896 \\
+		b(中) & 5767 & 0.288 \\
+		c(小) & 7478 & 0.704 \\ \bottomrule
+		\end{tabular}
+		\end{center}
+		\end{table}
+
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width = 12cm]{figs/week4-1.png}
+		\caption{各圧電セラミック素子による共振周波数-振幅特性}
+		\label{fig:各圧電セラミック素子}
+		\end{figure}
+
+		図\refeq{fig:各圧電セラミック素子}より，圧電素子のサイズが小さくなるにつれて，
+		共振周波数は大きくなり，振幅は圧電素子a > c > bの順に大きくなっていることがわかる。
+		圧電素子の形状と振幅についての関係性はわからなかった．
+
+	\subsection{共振周波数とキャパシタンスの関係}
+		キャパシタンス$C$は次式で与えられる。
+		\begin{equation}
+			C = \frac{ε \times A}{d}
+		\end{equation}
+		\begin{equation}
+			ε = ε_0 \times ε_r
+		\end{equation}
+		このとき，$ε$：誘電率，$ε_0 = 8.854 \times 10^{-12} $[F/m]:真空の誘電率， $ε_r$：比誘電率，
+		$A$：セラミック素子の面積，$d$:膜厚 となっている．
+		上式について各値の測定値と静電容量の計算結果を表\refeq{tab:各セラキャパシタンス}に示す．
+		\begin{table}[H]
+		\begin{center}
+		\caption{各圧電セラミック素子の共振周波数とキャパシタンスの関係表}
+		\label{tab:各セラキャパシタンス}
+		\begin{tabular}{c|cccccc} \toprule
+		圧電素子& 周波数[Hz]& 積層T[$\mathrm{\mu m}$]& 電極板厚t[$\mathrm{\mu m}$]& PZT膜厚d[$\mathrm{\mu m}$]&直径[cm]& 静電容量[nF] \\ \hline
+		a(大) & 2382 & 567 & 293 & 274 & 3.5 & 43.5\\
+		b(中) & 5767 & 569 & 301 & 268 & 2.7 & 26.5\\
+		c(小) & 7478 & 545 & 208 & 337 & 2.0 & 11.5\\ \bottomrule
+		\end{tabular}
+		\end{center}
+		\end{table}
+
+		表\refeq{tab:各セラキャパシタンス}をグラフ化したものを図\refeq{fig:各セラキャパシタンス}に示す．
+
+			\begin{figure}[H]
+			\centering
+			\includegraphics[width = 10cm]{figs/week4-2.png}
+			\caption{各圧電セラミック素子の共振周波数-静電容量特性}
+			\label{fig:各セラキャパシタンス}
+			\end{figure}
+
+		表\refeq{tab:各セラキャパシタンス}と図\refeq{fig:各セラキャパシタンス}より，
+		圧電素子の大きさに比例して静電容量は大きくなっており，静電容量が大きくなるにつれ共振周波数が小さくなることがわかった．
+\clearpage
 	\subsection{音源の周波数変化による振動状態の光測定}
 		\subsubsection{差分増幅回路を用いた光信号検出}
-
-			\begin{table}[H]
-			\begin{center}
-			\caption{音源周波数変化による周波数-振幅特性}
-			\label{tab:圧電素子a}
-			\begin{tabular}{l|SSS} \toprule
-				周波数\,[Hz]&\multicolumn{3}{c}{ゲイン抵抗$\mathrm{R_G}$\,[\Omega]}\\
-				& 100 & 500 & 1000 \\ \hline
-				100 & 456 & 254 & 332 \\
-				150 & 516 & 218 & 284 \\
-				300 & 664 & 59.2 & 328 \\
-				500 & 428 & 111 & 96.8 \\
-				1000 & 82.4 & 86.4 & 67.2 \\ \bottomrule
-			\end{tabular}
-			\end{center}
-			\end{table}
-
+			ゲイン抵抗100\,\Omega における各音源周波数の出力波形を図\refeq{fig:week5-1-100}に示す．
 			\begin{figure}[H]
 			\centering
 			\begin{minipage}{0.4\columnwidth}
@@ -254,7 +300,8 @@
 			\caption{$\mathrm{R_G}$ = 100\,\Omega の出力波形}
 			\label{fig:week5-1-100}
 			\end{figure}
-
+\clearpage
+			ゲイン抵抗500\,\Omega における各音源周波数の出力波形を図\refeq{fig:week5-1-500}に示す．
 			\begin{figure}[H]
 			\centering
 			\begin{minipage}{0.4\columnwidth}
@@ -289,7 +336,8 @@
 			\caption{$\mathrm{R_G}$ = 500\,\Omega の出力波形}
 			\label{fig:week5-1-500}
 			\end{figure}
-
+\clearpage
+			ゲイン抵抗1\,k\Omega における各音源周波数の出力波形を図\refeq{fig:week5-1-1k}に示す．
 			\begin{figure}[H]
 			\centering
 			\begin{minipage}{0.4\columnwidth}
@@ -325,22 +373,38 @@
 			\label{fig:week5-1-1k}
 			\end{figure}
 
-		\subsubsection{材料の違いによる出力信号測定}
-
+			図\refeq{fig:week5-1-100}～\refeq{fig:week5-1-1k}から各ゲイン抵抗，各音源周波数の
+			出力波形のピーク電圧を表\refeq{tab:音源周波数}に示す．
 			\begin{table}[H]
 			\begin{center}
-			\caption{2重プラスチックBOXでの周波数-振幅特性}
-			\label{tab:圧電素子b}
-			\begin{tabular}{l|S} \toprule
-				周波数\,[Hz]&振幅[mV]\\ \hline
-				100 & 204 \\
-				150 & 146 \\
-				300 & 89.6 \\
-				500 & 68.0 \\
-				1000 & 61.6 \\ \bottomrule
+			\caption{音源周波数変化による周波数-振幅特性表}
+			\label{tab:音源周波数}
+			\begin{tabular}{l|SSS} \toprule
+				周波数\,[Hz]&\multicolumn{3}{c}{ゲイン抵抗$\mathrm{R_G}$\,[\Omega]}\\
+				& 100 & 500 & 1000 \\ \hline
+				100 & 456 & 254 & 332 \\
+				150 & 516 & 218 & 284 \\
+				300 & 664 & 59.2 & 328 \\
+				500 & 428 & 111 & 96.8 \\
+				1000 & 82.4 & 86.4 & 67.2 \\ \bottomrule
 			\end{tabular}
 			\end{center}
 			\end{table}
+\clearpage
+			表\refeq{tab:音源周波数}をグラフ化したものを図\refeq{tab:音源周波数}に示す．
+			\begin{figure}[H]
+			\centering
+			\includegraphics[width = 12cm]{figs/week5-1.png}
+			\caption{音源周波数変化による周波数-振幅特性図}
+			\label{fig:音源周波数}
+			\end{figure}
+
+			図\refeq{fig:音源周波数}より，ゲイン抵抗が小さいほどピーク電圧は大きくなり，
+			ゲイン抵抗が100\,\Omega と1k\,\Omega の場合は音源周波数が300Hz付近でピーク電圧が最大になり，
+			反対に，500\,\Omega の場合はピーク電圧が最小になっていることがわかる．
+
+		\subsubsection{材質の違いによる出力信号測定}
+			2重プラスチックBOX内のスピーカーによる音源周波数ごとの出力波形を図\refeq{fig:week5-2}に示す．
 
 			\begin{figure}[H]
 			\centering
@@ -377,24 +441,33 @@
 			\label{fig:week5-2}
 			\end{figure}
 
-		\subsubsection{音源から検出器までの距離を変化させた場合の出力信号測定}
+			各音源周波数におけるピーク電圧を表\refeq{tab:材質}に示す．
 			\begin{table}[H]
 			\begin{center}
-			\caption{音源と検出器までの距離による周波数-振幅特性}
-			\label{tab:圧電素子c}
-			\begin{tabular}{l|SSS} \toprule
-			&\multicolumn{3}{c}{振幅[V]}\\\hline
-			周波数[Hz]&\multicolumn{3}{c}{ゲイン抵抗$\mathrm{R_G}$\,[\Omega]}\\
-			& 20 & 40 & 60 \\ \hline
-			100 & 2.08 & 2.28 & 0.236 \\
-			150 & 2.86 & 2.44 & 1.1 \\
-			300 & 2.62 & 1.80 & 1.14 \\
-			500 & 2.16 & 1.68 & 0.588 \\
-			1000 & 0.496 & 0.168 & 0.544 \\ \bottomrule
+			\caption{2重プラスチックBOXでの周波数-振幅特性表}
+			\label{tab:材質}
+			\begin{tabular}{l|S} \toprule
+				周波数\,[Hz]&振幅[mV]\\ \hline
+				100 & 204 \\
+				150 & 146 \\
+				300 & 89.6 \\
+				500 & 68.0 \\
+				1000 & 61.6 \\ \bottomrule
 			\end{tabular}
 			\end{center}
 			\end{table}
-
+\clearpage
+			表\refeq{tab:材質}をグラフ化したものを図\refeq{fig:材質}に示す．
+			\begin{figure}[H]
+			\centering
+			\includegraphics[width = 12cm]{figs/week5-2.png}
+			\caption{2重プラスチックBOXでの周波数-振幅特性図}
+			\label{fig:材質}
+			\end{figure}
+			図\refeq{fig:材質}より，周波数を大きくするほどピーク電圧が指数関数的に減衰していることがわかる．
+\clearpage
+		\subsubsection{音源から検出器までの距離を変化させた場合の出力信号測定}
+			音源-検出器間の距離を20\,cmに設定した際の各音源周波数による出力波形を図\refeq{fig:week5-3-20}に示す．
 			\begin{figure}[H]
 			\centering
 			\begin{minipage}{0.4\columnwidth}
@@ -429,7 +502,8 @@
 			\caption{音源-検出器間の距離が20\,cmの出力波形}
 			\label{fig:week5-3-20}
 			\end{figure}
-
+\clearpage
+			音源-検出器間の距離を40\,cmに設定した際の各音源周波数による出力波形を図\refeq{fig:week5-3-40}に示す．
 			\begin{figure}[H]
 			\centering
 			\begin{minipage}{0.4\columnwidth}
@@ -464,7 +538,8 @@
 			\caption{音源-検出器間の距離が40\,cmの出力波形}
 			\label{fig:week5-3-40}
 			\end{figure}
-
+\clearpage
+			音源-検出器間の距離を60\,cmに設定した際の各音源周波数による出力波形を図\refeq{fig:week5-3-60}に示す．
 			\begin{figure}[H]
 			\centering
 			\begin{minipage}{0.4\columnwidth}
@@ -500,6 +575,35 @@
 			\label{fig:week5-3-60}
 			\end{figure}
 
+			各距離における音源周波数によるピーク電圧を表\refeq{tab:距離}に示す．
+			\begin{table}[H]
+			\begin{center}
+			\caption{音源と検出器までの距離による周波数-振幅特性表}
+			\label{tab:距離}
+			\begin{tabular}{l|SSS} \toprule
+			&\multicolumn{3}{c}{振幅[V]}\\\hline
+			周波数[Hz]&\multicolumn{3}{c}{ゲイン抵抗$\mathrm{R_G}$\,[\Omega]}\\
+			& 20 & 40 & 60 \\ \hline
+			100 & 2.08 & 2.28 & 0.236 \\
+			150 & 2.86 & 2.44 & 1.1 \\
+			300 & 2.62 & 1.80 & 1.14 \\
+			500 & 2.16 & 1.68 & 0.588 \\
+			1000 & 0.496 & 0.168 & 0.544 \\ \bottomrule
+			\end{tabular}
+			\end{center}
+			\end{table}
+\clearpage
+			表\refeq{tab:距離}をグラフ化したものを図\refeq{fig:距離}に示す．
+			\begin{figure}[H]
+			\centering
+			\includegraphics[width = 12cm]{figs/week5-3.png}
+			\caption{音源-検出器間距離による周波数-振幅特性図}
+			\label{fig:距離}
+			\end{figure}
+
+			図\refeq{fig:距離}より，音源と検出器の距離が遠くなるにつれ，ほとんどの周波数においてピーク電圧が小さくなっていることがわかる．
+			ただし，距離60cmの周波数1\,kHzの測定の際，PC側の音量レベルを上昇させ，振幅が距離と周波数以外の要因で変化してしまったため，正しいデータとは言えない．
+
 \section{考察}
 	\begin{enumerate}
 		\item 2分割フォトダイオードからの出力信号波形を明瞭に得るには，受光部へのレーザビームの照射位置や面積をどのように調整する必要があるか説明する．\\
@@ -512,7 +616,7 @@
 		\item 音源が入るBOX用の反射材としてミラー板と，プラスチック容器の2種類を比較した．これらの各反射材の厚さを調べ，物理的形状の違いが出力波形にどのように影響しているか説明する．\\
 			ミラー板の厚さは575\,μm,プラスチック容器の厚さ2014\,μmであった．実験1と実験2のゲイン抵抗100\,\Omega の場合の出力値を比較すると，ミラー板の方は100～300\,Hzまでは周波数に比例して振幅値が上昇していることがわかる．
 			次に，プラスチック容器の場合は周波数が増えるにつれ，指数関数的に減衰していることがわかる．また，周波数ごとの振幅を比較すると，測定した全ての周波数において
-			ミラー板の方がプラスチック容器よりも振幅が大きくなっていることが読み取れる．したがって，反射材の厚さに反比例して振幅が変化するように影響しているとわかる．
+			ミラー板の方がプラスチック容器よりも振幅が大きくなっていることが読み取れる．したがって，反射材の厚さが厚くなるにつれ，振幅が減衰するように影響しているとわかる．
 		\item 音源の周波数の設定値によっては出力波形に入力信号と異なる周波数が重畳したり，ひずみやノイズが生じたりする場合があるが，これらの現象にはどのような要因が影響していると考えられるか.\\
 			出力波形の歪みについて，波形全体が60Hz程度で振動していた．これは，測定場所の照明が外乱として入力信号に加えられていると考えられる。
 			特に，周波数が高くなると出力波形の線が太くなった(ノイズが発生した)ため，同じ外乱成分でも周波数が高くなるにつれ，振幅が低下してS/N比が低くなってしまい，
