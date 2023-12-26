@@ -166,6 +166,20 @@
 			\end{enumerate}
 \section{実験結果}
 	\subsection{圧電セラミック素子への電圧印加による共振現象の測定}
+		圧電セラミック素子ごとの共振周波数と振幅の関係を表\refeq{tab:各圧電セラミック素子}に示す。
+		\begin{table}[H]
+		\begin{center}
+		\caption{圧電セラミック素子による周波数-振幅}
+		\label{tab:各圧電セラミック素子}
+		\begin{tabular}{c|cc} \toprule
+		圧電素子& 周波数[Hz]& 振幅[V] \\ \hline
+		a(大) & 2382 & 0.896 \\
+		b(中) & 5767 & 0.288 \\
+		c(小) & 7478 & 0.704 \\ \bottomrule
+		\end{tabular}
+		\end{center}
+		\end{table}
+	
 		\begin{figure}[H]
 		\centering
 		\includegraphics[width = 12cm]{figs/week4big.JPG}
@@ -179,7 +193,7 @@
 		\caption{圧電セラミック素子bを用いた測定系の出力波形}
 		\label{fig:圧電b}
 		\end{figure}
-		
+
 		\begin{figure}[H]
 		\centering
 		\includegraphics[width = 12cm]{figs/week4small.png}
@@ -189,6 +203,23 @@
 		
 	\subsection{音源の周波数変化による振動状態の光測定}
 		\subsubsection{差分増幅回路を用いた光信号検出}
+
+			\begin{table}[H]
+			\begin{center}
+			\caption{音源周波数変化による周波数-振幅特性}
+			\label{tab:圧電素子a}
+			\begin{tabular}{l|SSS} \toprule
+				周波数\,[Hz]&\multicolumn{3}{c}{ゲイン抵抗$\mathrm{R_G}$\,[\Omega]}\\
+				& 100 & 500 & 1000 \\ \hline
+				100 & 456 & 254 & 332 \\
+				150 & 516 & 218 & 284 \\
+				300 & 664 & 59.2 & 328 \\
+				500 & 428 & 111 & 96.8 \\
+				1000 & 82.4 & 86.4 & 67.2 \\ \bottomrule
+			\end{tabular}
+			\end{center}
+			\end{table}
+
 			\begin{figure}[H]
 			\centering
 			\begin{minipage}{0.4\columnwidth}
@@ -295,6 +326,22 @@
 			\end{figure}
 
 		\subsubsection{材料の違いによる出力信号測定}
+
+			\begin{table}[H]
+			\begin{center}
+			\caption{2重プラスチックBOXでの周波数-振幅特性}
+			\label{tab:圧電素子b}
+			\begin{tabular}{l|S} \toprule
+				周波数\,[Hz]&振幅[mV]\\ \hline
+				100 & 204 \\
+				150 & 146 \\
+				300 & 89.6 \\
+				500 & 68.0 \\
+				1000 & 61.6 \\ \bottomrule
+			\end{tabular}
+			\end{center}
+			\end{table}
+
 			\begin{figure}[H]
 			\centering
 			\begin{minipage}{0.4\columnwidth}
@@ -329,7 +376,25 @@
 			\caption{2重プラスチックBOXでの$\mathrm{R_G}$ = 100\Omega の出力波形}
 			\label{fig:week5-2}
 			\end{figure}
+
 		\subsubsection{音源から検出器までの距離を変化させた場合の出力信号測定}
+			\begin{table}[H]
+			\begin{center}
+			\caption{音源と検出器までの距離による周波数-振幅特性}
+			\label{tab:圧電素子c}
+			\begin{tabular}{l|SSS} \toprule
+			&\multicolumn{3}{c}{振幅[V]}\\\hline
+			周波数[Hz]&\multicolumn{3}{c}{ゲイン抵抗$\mathrm{R_G}$\,[\Omega]}\\
+			& 20 & 40 & 60 \\ \hline
+			100 & 2.08 & 2.28 & 0.236 \\
+			150 & 2.86 & 2.44 & 1.1 \\
+			300 & 2.62 & 1.80 & 1.14 \\
+			500 & 2.16 & 1.68 & 0.588 \\
+			1000 & 0.496 & 0.168 & 0.544 \\ \bottomrule
+			\end{tabular}
+			\end{center}
+			\end{table}
+
 			\begin{figure}[H]
 			\centering
 			\begin{minipage}{0.4\columnwidth}
@@ -442,7 +507,7 @@
 			%点光源を考慮した散乱の式
 		\item ゲイン抵抗の設定値と出力波形の振幅はどのような関係があるか説明する．\\
 			同じ周波数において，ゲイン抵抗を小さくするほど出力信号の振幅は大きくなっている．
-			これは，オペアンプを用いた差分増幅回路において，ゲイン抵抗が小さいほど増幅率(ゲイン)が大きくなるため，
+			これは，オペアンプを用いた差分増幅回路において，ゲイン抵抗が小さいほど増幅率(ゲイン)が大きくなるため，上述の関係があることがわかる。
 			%ゲインの算出式かきます
 		\item 音源が入るBOX用の反射材としてミラー板と，プラスチック容器の2種類を比較した．これらの各反射材の厚さを調べ，物理的形状の違いが出力波形にどのように影響しているか説明する．\\
 			ミラー板の厚さは575\,μm,プラスチック容器の厚さ2014\,μmであった．実験1と実験2のゲイン抵抗100\,\Omega の場合の出力値を比較すると，ミラー板の方は100～300\,Hzまでは周波数に比例して振幅値が上昇していることがわかる．
